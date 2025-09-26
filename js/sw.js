@@ -1,5 +1,5 @@
 const CACHE_NAME = 'shikshapatri-v1.0.7';
-const CACHE_VERSION = '1.0.7';
+const CACHE_VERSION = '1.0.8';
 
 const urlsToCache = [
     '/',

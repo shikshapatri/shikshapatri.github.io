@@ -72,6 +72,7 @@ function updateControls() {
     document.getElementById('sloka-slider').value = currentIndex + 1;
     document.getElementById('prev-btn').disabled = currentIndex === 0;
     document.getElementById('next-btn').disabled = currentIndex === slokas.length - 1;
+    updateBookmarkDisplay(); // Update bookmark state when navigating
 }
 
 function updateTranslationButtons() {
@@ -255,25 +256,69 @@ function handleSwipe() {
 document.getElementById('bookmark-btn').addEventListener('click', () => {
     localStorage.setItem('lastReadSloka', currentIndex);
     updateBookmarkDisplay();
-    // Visual feedback
+    
+    // Enhanced visual feedback
     const btn = document.getElementById('bookmark-btn');
-    btn.textContent = '✅';
+    const icon = document.getElementById('bookmark-icon');
+    const bubble = document.getElementById('bookmark-bubble');
+    
+    // Animate bookmark action
+    btn.classList.add('bookmarked');
+    icon.className = 'fas fa-check';
+    
+    // Show success message briefly
+    const originalTitle = btn.title;
+    btn.title = 'Sloka bookmarked!';
+    
     setTimeout(() => {
-        btn.textContent = '🔖';
-    }, 1000);
+        icon.className = 'fas fa-bookmark';
+        btn.title = originalTitle;
+    }, 2000);
 });
 
 // Update bookmark display in header
 function updateBookmarkDisplay() {
     const bookmarkBubble = document.getElementById('bookmark-bubble');
+    const bookmarkBtn = document.getElementById('bookmark-btn');
+    const bookmarkIcon = document.getElementById('bookmark-icon');
     const lastRead = localStorage.getItem('lastReadSloka');
     
     if (lastRead !== null) {
-        const slokaNumber = parseInt(lastRead) + 1;
+        const bookmarkedSlokaIndex = parseInt(lastRead);
+        const slokaNumber = bookmarkedSlokaIndex + 1;
+        
         bookmarkBubble.textContent = slokaNumber;
         bookmarkBubble.classList.add('show');
+        
+        // Check if current sloka is the bookmarked one
+        if (bookmarkedSlokaIndex === currentIndex) {
+            bookmarkBubble.classList.add('current-sloka');
+            bookmarkBtn.classList.add('bookmarked');
+            bookmarkBtn.title = 'This sloka is bookmarked';
+            bookmarkBubble.title = 'You are viewing the bookmarked sloka';
+        } else {
+            bookmarkBubble.classList.remove('current-sloka');
+            bookmarkBtn.classList.remove('bookmarked');
+            bookmarkBtn.title = 'Bookmark current sloka';
+            bookmarkBubble.title = `Go to bookmarked sloka ${slokaNumber}`;
+        }
+        
+        // Add click handler to bubble for navigation (only if not current sloka)
+        bookmarkBubble.onclick = (event) => {
+            event.stopPropagation(); // Prevent triggering parent button click
+            if (bookmarkedSlokaIndex !== currentIndex) {
+                currentIndex = bookmarkedSlokaIndex;
+                displaySloka();
+                updateControls();
+                updateBookmarkDisplay();
+                scrollToTop();
+            }
+        };
     } else {
         bookmarkBubble.textContent = '';
-        bookmarkBubble.classList.remove('show');
+        bookmarkBubble.classList.remove('show', 'current-sloka');
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.title = 'Bookmark current sloka';
+        bookmarkBubble.onclick = null;
     }
 }
