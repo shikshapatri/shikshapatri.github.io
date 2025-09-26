@@ -34,12 +34,6 @@ function displaySloka() {
     const sloka = slokas[currentIndex];
     if (!sloka) return;
 
-    // Update sloka number badge
-    const numberBadge = document.getElementById('sloka-number-badge');
-    if (numberBadge) {
-        numberBadge.textContent = currentIndex + 1;
-    }
-
     // Update sloka picture
     const pictureElement = document.getElementById('sloka-picture');
     if (pictureElement) {
