@@ -73,6 +73,18 @@ body {
     padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
 }
 
+/* Extend gradient behind status bar for Android PWA */
+.modern-header::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: var(--gradient-primary);
+    z-index: -1;
+}
+
 .header-content {
     display: flex;
     align-items: center;
