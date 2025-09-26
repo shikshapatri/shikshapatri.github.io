@@ -26,8 +26,8 @@
 }
 
 html, body {
-    height: 100%;
-    overflow: hidden;
+    height: 100vh;
+    overflow-x: hidden;
     font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
     touch-action: manipulation;
     -webkit-text-size-adjust: 100%;
@@ -38,8 +38,6 @@ html, body {
     user-select: none;
     /* Support for PWA safe areas on iPhones */
     padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-    position: fixed;
-    width: 100%;
 }
 
 body {
@@ -53,9 +51,7 @@ body {
 }
 
 .app-container {
-    height: 100%;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -207,7 +203,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: calc(80px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
+    padding: calc(100px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -657,10 +653,6 @@ body {
 
 /* Responsive Design - Mobile First */
 @media (max-width: 480px) {
-    .main-content {
-        padding: calc(70px + env(safe-area-inset-top, 0px)) 0.5rem calc(80px + env(safe-area-inset-bottom, 0px));
-    }
-
     .header-text h1 {
         font-size: 2.4rem;
     }
