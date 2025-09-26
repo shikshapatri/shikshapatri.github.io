@@ -41,7 +41,7 @@ html, body {
 }
 
 body {
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.75)), url('images/swaminarayan.jpg');
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.7)), url('images/swaminarayan.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -65,7 +65,7 @@ body {
     left: 0;
     right: 0;
     z-index: 200;
-    padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) 0.75rem 0.25rem;
+    padding: 0.5rem 0.75rem 0.25rem;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
 }
@@ -126,7 +126,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: calc(90px + env(safe-area-inset-top, 0px)) 0.5rem calc(80px + env(safe-area-inset-bottom, 0px));
+    padding: calc(90px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
