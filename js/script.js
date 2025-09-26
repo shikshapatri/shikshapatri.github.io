@@ -22,13 +22,29 @@ function displaySloka() {
     const sloka = slokas[currentIndex];
     if (!sloka) return;
 
-    // Update Sanskrit text with line breaks
-    document.getElementById('sanskrit-text').innerHTML = sloka.sanskrit.replace(/\n/g, '<br>');
-    
-    // Update translation text with line breaks
-    const translationText = translationLanguage === 'gujarati' ? sloka.gujarati : sloka.english;
-    document.getElementById('translation-text').innerHTML = translationText.replace(/\n/g, '<br>');
-    
+    // Clear and update Sanskrit text with line breaks
+    const sanskritElement = document.getElementById('sanskrit-text');
+    if (sanskritElement) {
+        sanskritElement.innerHTML = '';
+        sanskritElement.innerHTML = sloka.sanskrit.replace(/\n/g, '<br>');
+    }
+
+    // Clear and update translation text with line breaks
+    const translationElement = document.getElementById('translation-text');
+    if (translationElement) {
+        translationElement.innerHTML = '';
+        const translationText = translationLanguage === 'gujarati' ? sloka.gujarati : sloka.english;
+        translationElement.innerHTML = translationText.replace(/\n/g, '<br>');
+
+        // Force layout recalculation on mobile devices
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            setTimeout(() => {
+                translationElement.style.display = 'block';
+                translationElement.offsetHeight; // Force reflow
+            }, 10);
+        }
+    }
+
     updateTranslationButtons();
 }
 
