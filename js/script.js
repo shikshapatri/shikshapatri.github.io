@@ -6,6 +6,17 @@ async function loadSlokas() {
     try {
         const response = await fetch('assets/data.json');
         slokas = await response.json();
+        
+        // Get sloka from URL query param
+        const urlParams = new URLSearchParams(window.location.search);
+        const slokaParam = urlParams.get('sloka');
+        if (slokaParam && !isNaN(slokaParam)) {
+            currentIndex = parseInt(slokaParam) - 1;
+            if (currentIndex < 0 || currentIndex >= slokas.length) {
+                currentIndex = 0;
+            }
+        }
+        
         document.getElementById('sloka-slider').max = slokas.length;
         displaySloka();
         updateControls();
@@ -180,5 +191,14 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// Redirect to all-slokas.html if no sloka param
+if (!new URLSearchParams(window.location.search).has('sloka')) {
+    window.location.href = 'all-slokas.html';
+}
+
 // Load slokas on page load
 loadSlokas();
+
+document.getElementById('hamburger-menu').addEventListener('click', () => {
+    window.location.href = 'all-slokas.html';
+});
