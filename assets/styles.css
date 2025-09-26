@@ -41,7 +41,7 @@ html, body {
 }
 
 body {
-    background: linear-gradient(rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.95)), url('images/swaminarayan.jpg');
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.75)), url('images/swaminarayan.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -65,7 +65,7 @@ body {
     left: 0;
     right: 0;
     z-index: 200;
-    padding: calc(env(safe-area-inset-top, 0px) + 1rem) 0.75rem 1.5rem;
+    padding: calc(env(safe-area-inset-top, 0px) + 1rem) 0.75rem 0.5rem;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
 }
@@ -86,11 +86,14 @@ body {
 }
 
 .header-text h1 {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     font-weight: 700;
     margin: 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     font-family: 'Noto Sans Devanagari', serif;
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .header-wave {
@@ -106,7 +109,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: calc(120px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
+    padding: 110px 0.5rem 80px;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -124,6 +127,7 @@ body {
 .section-header {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     margin-bottom: 1rem;
     padding: 0.5rem 0;
@@ -157,11 +161,12 @@ body {
 
 /* Sanskrit Section */
 .sanskrit-section {
-    background: var(--gradient-card);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 1rem;
     box-shadow: var(--shadow-soft);
-    border: 2px solid var(--golden-yellow);
+    border: 1px solid var(--golden-yellow);
     position: relative;
     overflow: hidden;
 }
@@ -184,11 +189,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .sanskrit-text {
@@ -207,20 +208,23 @@ body {
 
 /* Translation Section */
 .translation-section {
-    background: linear-gradient(135deg, rgba(255, 251, 205, 0.95), rgba(255, 248, 180, 0.9));
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 1rem;
     box-shadow: var(--shadow-soft);
-    border: 2px solid var(--emerald-green);
+    border: 1px solid var(--golden-yellow);
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .controls-inline {
-    margin-left: auto;
     display: flex;
     gap: 0.5rem;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    justify-content: flex-start;
 }
 
 .lang-btn {
@@ -259,20 +263,20 @@ body {
 .zoom-control {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    gap: 0.3rem;
+    padding: 0.2rem;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .zoom-control i {
     color: var(--turquoise);
     cursor: pointer;
     transition: color 0.3s ease;
+    font-size: 0.8rem;
 }
 
 .zoom-control i:hover {
@@ -283,7 +287,7 @@ body {
     flex: 1;
     -webkit-appearance: none;
     appearance: none;
-    height: 6px;
+    height: 4px;
     border-radius: 5px;
     background: linear-gradient(to right, var(--turquoise), var(--emerald-green));
     outline: none;
@@ -317,13 +321,8 @@ body {
     font-size: 1.54rem;
     line-height: 1.8;
     color: var(--peacock-blue);
-    overflow-y: auto;
     padding: 1rem;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
@@ -506,7 +505,7 @@ body {
 /* Responsive Design - Mobile First */
 @media (max-width: 480px) {
     .header-text h1 {
-        font-size: 1.6rem;
+        font-size: 2.4rem;
     }
     
     .search-btn {
@@ -542,7 +541,7 @@ body {
     }
     
     .main-content {
-        padding: 120px 0.5rem 80px;
+        padding: 110px 0.5rem 80px;
     }
     
     .sloka-display {
@@ -701,7 +700,7 @@ body {
     }
     
     .main-content {
-        padding-top: max(120px, calc(120px + env(safe-area-inset-top)));
+        padding-top: max(96px, calc(96px + env(safe-area-inset-top)));
         padding-bottom: max(calc(80px + env(safe-area-inset-bottom)), 80px);
     }
     

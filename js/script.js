@@ -101,6 +101,27 @@ document.getElementById('zoom-slider').addEventListener('input', function() {
     translationText.style.fontSize = `${1.1 * scale}rem`;
 });
 
+// Add event listeners for zoom icons
+document.querySelector('.zoom-control .fa-search-minus').addEventListener('click', () => {
+    const slider = document.getElementById('zoom-slider');
+    const currentValue = parseFloat(slider.value);
+    const minValue = parseFloat(slider.min);
+    const step = parseFloat(slider.step);
+    const newValue = Math.max(minValue, currentValue - step);
+    slider.value = newValue;
+    slider.dispatchEvent(new Event('input'));
+});
+
+document.querySelector('.zoom-control .fa-search-plus').addEventListener('click', () => {
+    const slider = document.getElementById('zoom-slider');
+    const currentValue = parseFloat(slider.value);
+    const maxValue = parseFloat(slider.max);
+    const step = parseFloat(slider.step);
+    const newValue = Math.min(maxValue, currentValue + step);
+    slider.value = newValue;
+    slider.dispatchEvent(new Event('input'));
+});
+
 document.getElementById('sloka-slider').addEventListener('input', function() {
     currentIndex = this.value - 1;
     displaySloka();

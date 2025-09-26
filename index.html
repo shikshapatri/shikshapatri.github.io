@@ -56,23 +56,21 @@
                 
                 <div class="translation-section">
                     <div class="section-header">
-                        <i class="fas fa-language"></i>
-                        <span>Translation</span>
                         <div class="controls-inline">
                             <button class="lang-btn active" id="toggle-gujarati">
-                                <span class="flag">🇮🇳</span> ગુજરાતી
+                                ગુજરાતી
                             </button>
                             <button class="lang-btn" id="toggle-english">
-                                <span class="flag">🇬🇧</span> English
+                                English
                             </button>
+                            <div class="zoom-control">
+                                <i class="fas fa-search-minus"></i>
+                                <input type="range" id="zoom-slider" min="0.8" max="2" step="0.1" value="1.4" title="Zoom text">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="translation-card">
-                        <div class="zoom-control">
-                            <i class="fas fa-search-minus"></i>
-                            <input type="range" id="zoom-slider" min="0.8" max="2" step="0.1" value="1.4" title="Zoom text">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
                         <div class="translation-text" id="translation-text"></div>
                     </div>
                 </div>
@@ -85,13 +83,13 @@
                     </button>
                     
                     <div class="sloka-navigator">
+                        <div class="current-sloka-display">
+                            <span id="current-sloka">1</span> / <span id="total-slokas">212</span>
+                        </div>
                         <div class="slider-container">
                             <span class="slider-label">1</span>
                             <input type="range" id="sloka-slider" min="1" max="212" value="1" title="Navigate to sloka">
                             <span class="slider-label">212</span>
-                        </div>
-                        <div class="current-sloka-display">
-                            <span id="current-sloka">1</span> / <span id="total-slokas">212</span>
                         </div>
                     </div>
                     
