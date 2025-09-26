@@ -546,9 +546,8 @@ body {
 .sloka-picture {
     width: 100%;
     max-width: 350px;
-    aspect-ratio: 4/3;
+    min-height: 140px;
     border-radius: 12px;
-    overflow: hidden;
     margin-bottom: 0.5rem;
     box-shadow: var(--shadow-soft);
     background: rgba(255, 255, 255, 0.1);
@@ -558,18 +557,23 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    /* Allow container to grow with content */
+    height: auto;
+    overflow: visible;
 }
 
+/* Image styling - consistent across all browsers */
 .sloka-picture img {
+    display: block;
     max-width: 100%;
-    max-height: 100%;
-    width: auto;
     height: auto;
+    /* Prevent cropping, allow natural sizing */
     object-fit: contain;
     object-position: center;
     border-radius: 8px;
     transition: transform 0.3s ease;
-    image-rendering: -webkit-optimize-contrast;
+    /* Reasonable max size to prevent runaway growth */
+    max-height: 400px;
 }
 
 .sloka-number-badge {
@@ -584,36 +588,65 @@ body {
     flex-shrink: 0;
 }
 
-/* PWA Display Mode Fixes */
+/* PWA Display Mode Fixes - Simplified */
 @media (display-mode: standalone) {
+    html, body {
+        /* Prevent overscroll bounce in PWA */
+        overscroll-behavior: none;
+        -webkit-overscroll-behavior: none;
+    }
+    
+    .main-content {
+        /* Prevent excessive gap during pull-to-refresh */
+        padding-top: max(1rem, calc(80px + env(safe-area-inset-top, 0px)));
+        /* Prevent overscroll bounce */
+        overscroll-behavior: none;
+        -webkit-overscroll-behavior: none;
+    }
+    
+    .sloka-picture {
+        /* Ensure proper spacing in PWA mode */
+        margin-bottom: 0.75rem;
+    }
+
     .sloka-picture img {
-        border-radius: 8px;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
+        /* Maintain aspect ratio and sizing */
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 350px;
     }
 }
 
 /* iOS Safari PWA Fixes */
 @supports (-webkit-touch-callout: none) {
     @media (display-mode: standalone) {
-        .sloka-picture {
-            height: auto;
-            min-height: 140px;
-            max-height: none;
-            aspect-ratio: auto;
-            overflow: visible;
+        .main-content {
+            /* iOS Safari specific overscroll prevention */
+            overscroll-behavior-y: none;
+            -webkit-overscroll-behavior-y: none;
+            /* Ensure minimal gap */
+            padding-top: max(0.75rem, calc(70px + env(safe-area-inset-top, 0px)));
         }
         
         .sloka-picture img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            object-position: center;
-            border-radius: 8px;
+            /* iOS Safari specific image rendering */
             image-rendering: -webkit-optimize-contrast;
+            transform: translateZ(0); /* Force hardware acceleration */
+            -webkit-transform: translateZ(0); /* Force hardware acceleration */
+        }
+    }
+}
+
+/* Remove all previous conflicting iOS Safari rules */
+@supports (-webkit-touch-callout: none) {
+    @media (display-mode: standalone) {
+        /* Use same rules as general PWA mode for consistency */
+        .sloka-picture img {
+            /* iOS Safari specific image rendering */
+            image-rendering: -webkit-optimize-contrast;
+            transform: translateZ(0); /* Force hardware acceleration */
+            -webkit-transform: translateZ(0); /* Force hardware acceleration */
         }
     }
 }
@@ -653,9 +686,15 @@ body {
     }
     
     .sloka-picture {
-        aspect-ratio: 4/3;
         max-width: 60%;
         margin-bottom: 0.25rem;
+        min-height: 120px;
+    }
+    
+    .sloka-number-badge {
+        font-size: 0.8rem;
+        min-width: 1.8rem;
+        padding: 0.2rem 0.4rem;
     }
     
     .sloka-display {
