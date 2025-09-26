@@ -1,12 +1,15 @@
-const CACHE_NAME = 'shikshapatri-v1.0.5';
-const CACHE_VERSION = '1.0.5';
+const CACHE_NAME = 'shikshapatri-v1.0.7';
+const CACHE_VERSION = '1.0.7';
 
 const urlsToCache = [
     '/',
     '/index.html',
-    '/assets/styles.css',
+    '/all-slokas.html',
+    '/assets/styles-index.css',
+    '/assets/styles-all.css',
     '/assets/data.json',
     '/js/script.js',
+    '/js/all-slokas.js',
     '/manifest.json',
     '/assets/images/icon-192.png',
     '/assets/images/icon-512.png',

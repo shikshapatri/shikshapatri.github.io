@@ -20,6 +20,7 @@ async function loadSlokas() {
         document.getElementById('sloka-slider').max = slokas.length;
         displaySloka();
         updateControls();
+        updateBookmarkDisplay();
     } catch (error) {
         console.error('Error loading slokas:', error);
         const mainContent = document.querySelector('.main-content');
@@ -247,5 +248,32 @@ function handleSwipe() {
                 scrollToTop();
             }
         }
+    }
+}
+
+// Bookmark functionality
+document.getElementById('bookmark-btn').addEventListener('click', () => {
+    localStorage.setItem('lastReadSloka', currentIndex);
+    updateBookmarkDisplay();
+    // Visual feedback
+    const btn = document.getElementById('bookmark-btn');
+    btn.textContent = '✅';
+    setTimeout(() => {
+        btn.textContent = '🔖';
+    }, 1000);
+});
+
+// Update bookmark display in header
+function updateBookmarkDisplay() {
+    const bookmarkBubble = document.getElementById('bookmark-bubble');
+    const lastRead = localStorage.getItem('lastReadSloka');
+    
+    if (lastRead !== null) {
+        const slokaNumber = parseInt(lastRead) + 1;
+        bookmarkBubble.textContent = slokaNumber;
+        bookmarkBubble.classList.add('show');
+    } else {
+        bookmarkBubble.textContent = '';
+        bookmarkBubble.classList.remove('show');
     }
 }

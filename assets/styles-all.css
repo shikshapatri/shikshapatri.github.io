@@ -65,9 +65,12 @@ body {
     left: 0;
     right: 0;
     z-index: 200;
-    padding: 0.5rem 0.75rem 0.25rem;
+    padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) 0.75rem 0.25rem;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
+    /* Ensure proper safe area handling for PWA */
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
 }
 
 .header-content {
@@ -109,7 +112,7 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: calc(60px + env(safe-area-inset-top, 0px)) 0 calc(80px + env(safe-area-inset-bottom, 0px));
+    padding: calc(80px + env(safe-area-inset-top, 0px)) 0 calc(80px + env(safe-area-inset-bottom, 0px));
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -148,6 +151,12 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
+.sloka-item.bookmarked {
+    background: rgba(255, 215, 0, 0.2);
+    border-left: 4px solid #FFD700;
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+}
+
 .sloka-number {
     background: var(--gradient-secondary);
     color: white;
@@ -158,6 +167,18 @@ body {
     min-width: 2rem;
     text-align: center;
     flex-shrink: 0;
+    position: relative;
+}
+
+.bookmark-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.8rem;
+    background: white;
+    border-radius: 50%;
+    padding: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .sloka-text {
@@ -253,6 +274,6 @@ body {
     }
     
     .main-content {
-        padding: 90px 0 80px;
+        padding: calc(80px + env(safe-area-inset-top, 0px)) 0 calc(80px + env(safe-area-inset-bottom, 0px));
     }
 }
