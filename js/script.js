@@ -33,6 +33,12 @@ function displaySloka() {
     const sloka = slokas[currentIndex];
     if (!sloka) return;
 
+    // Update sloka number badge
+    const numberBadge = document.getElementById('sloka-number-badge');
+    if (numberBadge) {
+        numberBadge.textContent = currentIndex + 1;
+    }
+
     // Clear and update Sanskrit text with line breaks
     const sanskritElement = document.getElementById('sanskrit-text');
     if (sanskritElement) {
