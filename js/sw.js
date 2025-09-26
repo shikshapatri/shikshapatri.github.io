@@ -1,5 +1,5 @@
-const CACHE_NAME = 'shikshapatri-v1.0.9';
-const CACHE_VERSION = '1.0.9';
+const CACHE_NAME = 'shikshapatri-v1.1.0';
+const CACHE_VERSION = '1.1.0';
 
 const urlsToCache = [
     '/',
@@ -16,6 +16,12 @@ const urlsToCache = [
     '/assets/images/app-icon.png',
     '/assets/images/favicon.ico',
     '/assets/images/swaminarayan.jpg',
+    '/assets/pictorial/1.png',
+    '/assets/pictorial/2.png',
+    '/assets/pictorial/3.png',
+    '/assets/pictorial/4.png',
+    '/assets/pictorial/5.png',
+    '/assets/pictorial/6.png',
     // Cache external resources
     'https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'

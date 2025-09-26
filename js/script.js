@@ -40,6 +40,24 @@ function displaySloka() {
         numberBadge.textContent = currentIndex + 1;
     }
 
+    // Update sloka picture
+    const pictureElement = document.getElementById('sloka-picture');
+    if (pictureElement) {
+        const slokaNumber = currentIndex + 1;
+        const imagePath = `assets/pictorial/${slokaNumber}.png`;
+        const fallbackPath = 'assets/pictorial/1.png';
+        
+        // Check if image exists, fallback to 1.png if not
+        const img = new Image();
+        img.onload = function() {
+            pictureElement.innerHTML = `<img src="${imagePath}" alt="Sloka ${slokaNumber} illustration" loading="lazy">`;
+        };
+        img.onerror = function() {
+            pictureElement.innerHTML = `<img src="${fallbackPath}" alt="Sloka illustration" loading="lazy">`;
+        };
+        img.src = imagePath;
+    }
+
     // Clear and update Sanskrit text with line breaks
     const sanskritElement = document.getElementById('sanskrit-text');
     if (sanskritElement) {
