@@ -1,5 +1,5 @@
-const CACHE_NAME = 'shikshapatri-v1.0.7';
-const CACHE_VERSION = '1.0.8';
+const CACHE_NAME = 'shikshapatri-v1.0.9';
+const CACHE_VERSION = '1.0.9';
 
 const urlsToCache = [
     '/',
@@ -59,11 +59,23 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', event => {
+    // Special handling for background images
+    if (event.request.url.includes('swaminarayan.jpg')) {
+        console.log('[SW] Serving background image:', event.request.url);
+    }
+
     event.respondWith(
         caches.match(event.request)
             .then(response => {
                 // Return cached version or fetch from network
-                return response || fetch(event.request).then(fetchResponse => {
+                if (response) {
+                    if (event.request.url.includes('swaminarayan.jpg')) {
+                        console.log('[SW] Serving cached background image');
+                    }
+                    return response;
+                }
+
+                return fetch(event.request).then(fetchResponse => {
                     // Don't cache non-successful responses
                     if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
                         return fetchResponse;
@@ -75,6 +87,9 @@ self.addEventListener('fetch', event => {
                     caches.open(CACHE_NAME)
                         .then(cache => {
                             cache.put(event.request, responseToCache);
+                            if (event.request.url.includes('swaminarayan.jpg')) {
+                                console.log('[SW] Cached background image');
+                            }
                         });
 
                     return fetchResponse;

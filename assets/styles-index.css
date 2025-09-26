@@ -41,7 +41,7 @@ html, body {
 }
 
 body {
-    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.7)), url('images/swaminarayan.jpg');
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.7)), url('/assets/images/swaminarayan.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
