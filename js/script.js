@@ -205,6 +205,47 @@ if (!new URLSearchParams(window.location.search).has('sloka')) {
 // Load slokas on page load
 loadSlokas();
 
-document.getElementById('hamburger-menu').addEventListener('click', () => {
-    window.location.href = 'all-slokas.html';
+// Touch gesture handling for swipe navigation
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+
+const slokaDisplay = document.querySelector('.sloka-display');
+
+slokaDisplay.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
 });
+
+slokaDisplay.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    
+    // Check if horizontal swipe is dominant (not vertical)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+            // Swipe right - go to previous sloka
+            if (currentIndex > 0) {
+                currentIndex--;
+                displaySloka();
+                updateControls();
+                scrollToTop();
+            }
+        } else {
+            // Swipe left - go to next sloka
+            if (currentIndex < slokas.length - 1) {
+                currentIndex++;
+                displaySloka();
+                updateControls();
+                scrollToTop();
+            }
+        }
+    }
+}
