@@ -38,9 +38,6 @@ html, body {
     user-select: none;
     /* Support for PWA safe areas on iPhones */
     padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-    /* Prevent overscroll bounce on iOS */
-    overscroll-behavior: none;
-    -webkit-overscroll-behavior: none;
 }
 
 body {
@@ -210,10 +207,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    /* Prevent content from being pulled too far */
-    position: relative;
-    top: 0;
-    transform: translateY(0);
 }
 
 .sloka-display {
@@ -601,26 +594,14 @@ body {
         /* Prevent overscroll bounce in PWA */
         overscroll-behavior: none;
         -webkit-overscroll-behavior: none;
-        /* Lock iOS viewport to prevent excessive scroll */
-        position: fixed;
-        width: 100%;
-        height: 100%;
     }
     
     .main-content {
-        /* Lock content position with strict gap control */
-        padding-top: 1rem;
-        margin-top: calc(80px + env(safe-area-inset-top, 0px));
+        /* Prevent excessive gap during pull-to-refresh */
+        padding-top: max(1rem, calc(80px + env(safe-area-inset-top, 0px)));
         /* Prevent overscroll bounce */
         overscroll-behavior: none;
         -webkit-overscroll-behavior: none;
-        /* Force content to stay in position */
-        position: relative;
-        top: 0;
-        transform: translateY(0);
-        /* Enable scrolling within container */
-        overflow-y: auto;
-        height: calc(100vh - 160px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
     }
     
     .sloka-picture {
@@ -657,26 +638,10 @@ body {
     }
 }
 
-/* iOS Safari PWA Fixes - Enhanced */
+/* Remove all previous conflicting iOS Safari rules */
 @supports (-webkit-touch-callout: none) {
     @media (display-mode: standalone) {
-        html, body {
-            /* iOS-specific viewport lock */
-            position: fixed;
-            overflow: hidden;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .main-content {
-            /* iOS Safari specific positioning */
-            padding-top: 0.75rem;
-            margin-top: calc(75px + env(safe-area-inset-top, 0px));
-            /* Ensure scrollable content */
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            height: calc(100vh - 150px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-        }
-        
+        /* Use same rules as general PWA mode for consistency */
         .sloka-picture img {
             /* iOS Safari specific image rendering */
             image-rendering: -webkit-optimize-contrast;
