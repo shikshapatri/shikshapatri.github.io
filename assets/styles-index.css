@@ -569,6 +569,7 @@ body {
     object-position: center;
     border-radius: 8px;
     transition: transform 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .sloka-number-badge {
@@ -602,6 +603,7 @@ body {
             min-height: 140px;
             max-height: none;
             aspect-ratio: auto;
+            overflow: visible;
         }
         
         .sloka-picture img {
@@ -611,6 +613,7 @@ body {
             object-fit: contain;
             object-position: center;
             border-radius: 8px;
+            image-rendering: -webkit-optimize-contrast;
         }
     }
 }
