@@ -258,7 +258,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 1rem;
+    padding: 0.5rem;
     box-shadow: var(--shadow-soft);
     border: 1px solid var(--golden-yellow);
     position: relative;
@@ -266,7 +266,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.1rem;
 }
 
 .sloka-content-row {
@@ -277,7 +277,7 @@ body {
 }
 
 .sanskrit-card {
-    min-height: 80px;
+    min-height: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -546,10 +546,10 @@ body {
 .sloka-picture {
     width: 100%;
     max-width: 350px;
-    /* Fixed height container to prevent card length increase */
-    height: 140px;
-    min-height: 140px;
-    max-height: 140px;
+    /* Fixed height container increased by 20% */
+    height: 168px;
+    min-height: 168px;
+    max-height: 168px;
     border-radius: 12px;
     margin-bottom: 0.5rem;
     box-shadow: var(--shadow-soft);
@@ -597,7 +597,7 @@ body {
     
     .sloka-picture {
         /* Ensure proper spacing in PWA mode */
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.1rem;
     }
 
     .sloka-picture img {
@@ -680,10 +680,10 @@ body {
     
     .sloka-picture {
         max-width: 60%;
-        /* Fixed height container for mobile */
-        height: 120px;
-        min-height: 120px;
-        max-height: 120px;
+        /* Fixed height container for mobile increased by 20% */
+        height: 144px;
+        min-height: 144px;
+        max-height: 144px;
         margin-bottom: 0.25rem;
         overflow: hidden;
     }
@@ -760,6 +760,6 @@ body {
     .sanskrit-section {
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
     }
 }
