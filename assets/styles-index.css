@@ -594,6 +594,25 @@ body {
     }
 }
 
+/* iOS Safari PWA Fixes */
+@supports (-webkit-touch-callout: none) {
+    @media (display-mode: standalone) {
+        .sloka-picture {
+            min-height: 200px;
+            max-height: 250px;
+            aspect-ratio: auto;
+        }
+        
+        .sloka-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 8px;
+        }
+    }
+}
+
 /* Responsive Design - Mobile First */
 @media (max-width: 480px) {
     .header-text h1 {
