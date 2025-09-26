@@ -1,0 +1,729 @@
+/* Modern Hindu-inspired Design with Peacock Colors */
+:root {
+    --peacock-blue: #1e3a5f;
+    --peacock-green: #2d5a3d;
+    --peacock-teal: #0f4c3a;
+    --golden-yellow: #f4d03f;
+    --royal-purple: #6c3483;
+    --emerald-green: #27ae60;
+    --turquoise: #17a2b8;
+    --saffron: #e67e22;
+    --pure-white: #ffffff;
+    --soft-cream: #fdfefe;
+    --light-gold: #f8f9fa;
+    
+    --gradient-primary: linear-gradient(135deg, var(--peacock-blue), var(--peacock-green));
+    --gradient-secondary: linear-gradient(135deg, var(--golden-yellow), var(--saffron));
+    --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.9));
+    --shadow-soft: 0 8px 32px rgba(0,0,0,0.1);
+    --shadow-strong: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Support for PWA safe areas on iPhones */
+    padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+}
+
+body {
+    background: linear-gradient(rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.95)), url('images/swaminarayan.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: var(--peacock-blue);
+    line-height: 1.6;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Modern Header */
+.modern-header {
+    background: var(--gradient-primary);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    padding: calc(env(safe-area-inset-top, 0px) + 1rem) 0.75rem 1.5rem;
+    box-shadow: var(--shadow-strong);
+    overflow: hidden;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.header-text {
+    text-align: center;
+    color: white;
+}
+
+.header-text h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Noto Sans Devanagari', serif;
+}
+
+.header-wave {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: var(--gradient-secondary);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: calc(120px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.sloka-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    min-height: calc(100vh - 250px);
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+.section-header i {
+    color: var(--saffron);
+    font-size: 1.2rem;
+}
+
+.section-header span {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--peacock-blue);
+}
+
+.decorative-dots {
+    margin-left: auto;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.decorative-dots span {
+    color: var(--golden-yellow);
+    font-size: 1.2rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.decorative-dots span:nth-child(2) { animation-delay: 0.3s; }
+.decorative-dots span:nth-child(3) { animation-delay: 0.6s; }
+
+/* Sanskrit Section */
+.sanskrit-section {
+    background: var(--gradient-card);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid var(--golden-yellow);
+    position: relative;
+    overflow: hidden;
+}
+
+.sanskrit-section::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, var(--golden-yellow)20, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.sanskrit-card {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.sanskrit-text {
+    font-family: 'Noto Sans Devanagari', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.8;
+    color: var(--peacock-blue);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Translation Section */
+.translation-section {
+    background: linear-gradient(135deg, rgba(255, 251, 205, 0.95), rgba(255, 248, 180, 0.9));
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid var(--emerald-green);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.controls-inline {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 2px solid var(--turquoise);
+    color: var(--turquoise);
+    padding: 0.4rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+}
+
+.lang-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+
+.lang-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: var(--peacock-blue);
+}
+
+.translation-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+}
+
+.zoom-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.zoom-control i {
+    color: var(--turquoise);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.zoom-control i:hover {
+    color: var(--peacock-blue);
+}
+
+#zoom-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 5px;
+    background: linear-gradient(to right, var(--turquoise), var(--emerald-green));
+    outline: none;
+    cursor: pointer;
+}
+
+#zoom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#zoom-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.translation-text {
+    flex: 1;
+    font-size: 1.54rem;
+    line-height: 1.8;
+    color: var(--peacock-blue);
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Navigation Panel */
+.navigation-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--gradient-primary);
+    padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    z-index: 100;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.nav-btn {
+    background: var(--gradient-secondary);
+    border: none;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 50%;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    font-size: 1.2rem;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: var(--shadow-strong);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.nav-btn:disabled:hover {
+    transform: none;
+    scale: 1;
+}
+
+.sloka-navigator {
+    flex: 1;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.slider-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-width: 30px;
+    text-align: center;
+}
+
+.current-sloka-display {
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+#sloka-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.3);
+    outline: none;
+    cursor: pointer;
+}
+
+#sloka-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#sloka-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Floating Elements */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-om, .floating-lotus, .floating-feather {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-om {
+    top: 20%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.floating-lotus {
+    bottom: 30%;
+    left: 5%;
+    animation-delay: 2s;
+}
+
+.floating-feather {
+    top: 60%;
+    right: 5%;
+    animation-delay: 4s;
+}
+
+/* Animations */
+@keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    to { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(244,208,63,0.3); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Responsive Design - Mobile First */
+@media (max-width: 480px) {
+    .header-text h1 {
+        font-size: 1.6rem;
+    }
+    
+    .search-btn {
+        padding: 0.6rem;
+        font-size: 1rem;
+        min-width: 42px;
+        min-height: 42px;
+    }
+    
+    .search-container {
+        padding: 0.75rem;
+        gap: 0.75rem;
+    }
+    
+    #search-input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .close-search {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        min-width: 38px;
+        min-height: 38px;
+    }
+    
+    .search-result-item {
+        padding: 0.6rem 0.75rem;
+    }
+    
+    .search-result-text {
+        font-size: 0.8rem;
+    }
+    
+    .main-content {
+        padding: 120px 0.5rem 80px;
+    }
+    
+    .sloka-display {
+        gap: 1rem;
+        margin-bottom: 1rem;
+        min-height: calc(100vh - 200px);
+    }
+    
+    .section-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .section-header span {
+        font-size: 1rem;
+    }
+    
+    .controls-inline {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        justify-content: flex-start;
+    }
+    
+    .lang-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+        gap: 0.3rem;
+    }
+    
+    .sanskrit-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .translation-text {
+        font-size: 1.33rem;
+        line-height: 1.6;
+        padding: 0.75rem;
+    }
+    
+    .navigation-panel {
+        padding: 0.75rem 0.75rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    }
+    
+    .nav-btn {
+        padding: 0.6rem;
+        font-size: 1rem;
+        min-width: 45px;
+        min-height: 45px;
+    }
+    
+    .sloka-navigator {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .current-sloka-display {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.6rem;
+    }
+    
+    .slider-label {
+        font-size: 0.75rem;
+        min-width: 25px;
+    }
+    
+    .zoom-control {
+        padding: 0.4rem;
+        gap: 0.75rem;
+    }
+    
+    .floating-om, .floating-lotus, .floating-feather {
+        font-size: 1.5rem;
+        opacity: 0.05;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .header-text h1 {
+        font-size: 2.2rem;
+    }
+    
+    .main-content {
+        padding: 110px 0.75rem 90px;
+    }
+    
+    .sanskrit-text {
+        font-size: 1.2rem;
+    }
+    
+    .translation-text {
+        font-size: 1.4rem;
+    }
+    
+    .nav-content {
+        gap: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .header-text h1 {
+        font-size: 2.8rem;
+    }
+    
+    .main-content {
+        padding: 140px 1rem 100px;
+    }
+    
+    .sloka-display {
+        gap: 2rem;
+        margin-bottom: 2rem;
+        min-height: calc(100vh - 280px);
+    }
+    
+    .sanskrit-section, .translation-section {
+        padding: 1.5rem;
+    }
+    
+    .sanskrit-text {
+        font-size: 1.3rem;
+        line-height: 2;
+    }
+    
+    .translation-text {
+        font-size: 1.54rem;
+    }
+    
+    .navigation-panel {
+        padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    }
+    
+    .nav-btn {
+        padding: 0.9rem;
+        font-size: 1.3rem;
+        min-width: 55px;
+        min-height: 55px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(248,249,250,0.1));
+    }
+    
+    .translation-text {
+        background: rgba(0,0,0,0.3);
+        color: var(--soft-cream);
+    }
+}
+
+/* iPhone Safe Area Support */
+@supports (padding: max(0px)) {
+    .modern-header {
+        padding-top: max(1rem, calc(1rem + env(safe-area-inset-top)));
+    }
+    
+    .main-content {
+        padding-top: max(120px, calc(120px + env(safe-area-inset-top)));
+        padding-bottom: max(calc(80px + env(safe-area-inset-bottom)), 80px);
+    }
+    
+    .navigation-panel {
+        padding-bottom: max(0.75rem, calc(0.75rem + env(safe-area-inset-bottom)));
+    }
+}
+
+/* iPhone X, XS, 11 Pro, 12 mini, 13 mini - Portrait */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+    .modern-header {
+        padding-top: calc(44px + 1rem); /* Status bar + padding */
+    }
+    
+    .main-content {
+        padding-top: calc(88px + 44px); /* Header height + status bar */
+    }
+}
+
+/* iPhone X, XS, 11 Pro, 12 mini, 13 mini - Landscape */
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+    .modern-header {
+        padding-top: calc(21px + 1rem); /* Smaller status bar in landscape */
+    }
+}

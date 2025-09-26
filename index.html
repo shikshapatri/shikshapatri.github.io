@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>शिक्षापत्री - Sacred Swaminarayan Text</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" sizes="192x192" href="assets/images/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="assets/images/icon-512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/images/icon-512.png">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#1e3a5f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Shikshapatri">
+    <meta name="msapplication-TileColor" content="#1e3a5f">
+    <meta name="msapplication-TileImage" content="assets/images/icon-192.png">
+    
+    <!-- SEO and Social -->
+    <meta name="description" content="Sacred text app for reading Shikshapatri with Sanskrit, Gujarati, and English translations. A devotional PWA for Swaminarayan followers.">
+    <meta name="keywords" content="Shikshapatri, Swaminarayan, Sanskrit, Gujarati, Hindu, Sacred Text, PWA, Devotional">
+    <meta name="author" content="Swaminarayan Devotees">
+</head>
+<body>
+    <div class="app-container">
+        <header class="modern-header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>शिक्षापत्री</h1>
+                </div>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="sloka-display">
+                <div class="sanskrit-section">
+                    <div class="sanskrit-card">
+                        <div class="sanskrit-text" id="sanskrit-text"></div>
+                    </div>
+                </div>
+                
+                <div class="translation-section">
+                    <div class="section-header">
+                        <i class="fas fa-language"></i>
+                        <span>Translation</span>
+                        <div class="controls-inline">
+                            <button class="lang-btn active" id="toggle-gujarati">
+                                <span class="flag">🇮🇳</span> ગુજરાતી
+                            </button>
+                            <button class="lang-btn" id="toggle-english">
+                                <span class="flag">🇬🇧</span> English
+                            </button>
+                        </div>
+                    </div>
+                    <div class="translation-card">
+                        <div class="zoom-control">
+                            <i class="fas fa-search-minus"></i>
+                            <input type="range" id="zoom-slider" min="0.8" max="2" step="0.1" value="1.4" title="Zoom text">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <div class="translation-text" id="translation-text"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation-panel">
+                <div class="nav-content">
+                    <button class="nav-btn prev-btn" id="prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="sloka-navigator">
+                        <div class="slider-container">
+                            <span class="slider-label">1</span>
+                            <input type="range" id="sloka-slider" min="1" max="212" value="1" title="Navigate to sloka">
+                            <span class="slider-label">212</span>
+                        </div>
+                        <div class="current-sloka-display">
+                            <span id="current-sloka">1</span> / <span id="total-slokas">212</span>
+                        </div>
+                    </div>
+                    
+                    <button class="nav-btn next-btn" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <div class="floating-elements">
+            <div class="floating-om">🕉️</div>
+            <div class="floating-lotus">🪷</div>
+            <div class="floating-feather">🪶</div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

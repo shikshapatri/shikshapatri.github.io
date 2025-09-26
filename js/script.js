@@ -1,0 +1,147 @@
+let slokas = [];
+let currentIndex = 0;
+let translationLanguage = 'gujarati'; // Default to Gujarati
+
+async function loadSlokas() {
+    try {
+        const response = await fetch('assets/data.json');
+        slokas = await response.json();
+        document.getElementById('sloka-slider').max = slokas.length;
+        displaySloka();
+        updateControls();
+    } catch (error) {
+        console.error('Error loading slokas:', error);
+        const mainContent = document.querySelector('.main-content');
+        if (mainContent) {
+            mainContent.innerHTML = '<p>Error loading content. Please try again later.</p>';
+        }
+    }
+}
+
+function displaySloka() {
+    const sloka = slokas[currentIndex];
+    if (!sloka) return;
+
+    // Update Sanskrit text with line breaks
+    document.getElementById('sanskrit-text').innerHTML = sloka.sanskrit.replace(/\n/g, '<br>');
+    
+    // Update translation text with line breaks
+    const translationText = translationLanguage === 'gujarati' ? sloka.gujarati : sloka.english;
+    document.getElementById('translation-text').innerHTML = translationText.replace(/\n/g, '<br>');
+    
+    updateTranslationButtons();
+}
+
+function updateControls() {
+    document.getElementById('current-sloka').textContent = currentIndex + 1;
+    document.getElementById('total-slokas').textContent = slokas.length;
+    document.getElementById('sloka-slider').value = currentIndex + 1;
+    document.getElementById('prev-btn').disabled = currentIndex === 0;
+    document.getElementById('next-btn').disabled = currentIndex === slokas.length - 1;
+}
+
+function updateTranslationButtons() {
+    document.getElementById('toggle-gujarati').classList.toggle('active', translationLanguage === 'gujarati');
+    document.getElementById('toggle-english').classList.toggle('active', translationLanguage === 'english');
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        displaySloka();
+        updateControls();
+        scrollToTop();
+    }
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+    if (currentIndex < slokas.length - 1) {
+        currentIndex++;
+        displaySloka();
+        updateControls();
+        scrollToTop();
+    }
+});
+
+document.getElementById('toggle-gujarati').addEventListener('click', () => {
+    translationLanguage = 'gujarati';
+    displaySloka();
+    updateTranslationButtons();
+});
+
+document.getElementById('toggle-english').addEventListener('click', () => {
+    translationLanguage = 'english';
+    displaySloka();
+    updateTranslationButtons();
+});
+
+document.getElementById('zoom-slider').addEventListener('input', function() {
+    const scale = this.value;
+    const translationText = document.querySelector('.translation-text');
+    translationText.style.fontSize = `${1.1 * scale}rem`;
+});
+
+document.getElementById('sloka-slider').addEventListener('input', function() {
+    currentIndex = this.value - 1;
+    displaySloka();
+    updateControls();
+    scrollToTop();
+});
+
+// Register service worker with versioning support
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('js/sw.js')
+            .then(registration => {
+                console.log('[APP] SW registered successfully:', registration);
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    console.log('[APP] SW update found');
+                    const newWorker = registration.installing;
+                    
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('[APP] New SW installed, prompting user to refresh');
+                            // You could show a toast/notification here to refresh
+                            if (confirm('App updated! Refresh to use the latest version?')) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+                
+                // Check for waiting SW
+                if (registration.waiting) {
+                    console.log('[APP] SW waiting, prompting user to refresh');
+                    if (confirm('App update ready! Refresh to use the latest version?')) {
+                        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                        window.location.reload();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('[APP] SW registration failed:', error);
+            });
+            
+        // Listen for SW messages
+        navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data && event.data.type === 'SW_UPDATED') {
+                console.log('[APP] SW updated successfully');
+            }
+        });
+        
+        // Handle SW controller change
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            console.log('[APP] SW controller changed, reloading page');
+            window.location.reload();
+        });
+    });
+}
+
+// Load slokas on page load
+loadSlokas();
