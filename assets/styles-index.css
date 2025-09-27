@@ -38,6 +38,9 @@ html, body {
     user-select: none;
     /* Support for PWA safe areas on iPhones */
     padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+    /* Prevent iOS PWA overscroll */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
 }
 
 body {
@@ -48,6 +51,13 @@ body {
     background-attachment: scroll;
     color: var(--peacock-blue);
     line-height: 1.6;
+    /* Prevent iOS PWA bounce scroll */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
 }
 
 .app-container {
@@ -219,6 +229,13 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    /* Make main content scrollable on iOS PWA */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh;
+    box-sizing: border-box;
+    /* Ensure starts at top */
+    scroll-behavior: auto;
 }
 
 .sloka-display {
@@ -773,5 +790,38 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
+    }
+}
+
+/* iOS PWA Specific Fixes */
+@media screen and (display-mode: standalone) {
+    /* Prevent iOS PWA overscroll bounce */
+    body {
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: auto;
+    }
+    
+    .main-content {
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Ensure content loads at top */
+    .app-container {
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+}
+
+/* iOS Device Specific */
+@supports (-webkit-touch-callout: none) {
+    body {
+        /* Prevent iOS bounce scroll */
+        overscroll-behavior-y: none;
+    }
+    
+    .main-content {
+        /* Allow internal scrolling only */
+        overscroll-behavior: contain;
     }
 }

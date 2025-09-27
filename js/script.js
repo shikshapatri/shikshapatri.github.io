@@ -21,6 +21,14 @@ async function loadSlokas() {
         displaySloka();
         updateControls();
         updateBookmarkDisplay();
+        
+        // iOS PWA: Ensure page loads at top
+        if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                document.querySelector('.main-content').scrollTop = 0;
+            }, 100);
+        }
     } catch (error) {
         console.error('Error loading slokas:', error);
         const mainContent = document.querySelector('.main-content');
