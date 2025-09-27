@@ -38,9 +38,6 @@ html, body {
     user-select: none;
     /* Support for PWA safe areas on iPhones */
     padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-    /* Prevent iOS PWA overscroll */
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none;
 }
 
 body {
@@ -51,13 +48,6 @@ body {
     background-attachment: scroll;
     color: var(--peacock-blue);
     line-height: 1.6;
-    /* Prevent iOS PWA bounce scroll */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
 }
 
 .app-container {
@@ -71,22 +61,19 @@ body {
 .modern-header {
     background: var(--gradient-primary);
     position: fixed;
-    top: env(safe-area-inset-top, 0px);
+    top: 0;
     left: 0;
     right: 0;
     z-index: 200;
-    padding: 0.5rem 0.75rem 0.25rem;
+    padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) 0.75rem 0.25rem;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
     /* Ensure proper safe area handling for PWA */
     padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
     padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
-    /* Ensure header appears correctly in PWA */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
 }
 
-/* Extend gradient behind status bar for Android PWA only */
+/* Extend gradient behind status bar for Android PWA */
 .modern-header::before {
     content: '';
     position: fixed;
@@ -96,15 +83,6 @@ body {
     height: env(safe-area-inset-top, 0px);
     background: var(--gradient-primary);
     z-index: -1;
-}
-
-/* iOS PWA: Remove the ::before pseudo-element since header starts after status bar */
-@supports (-webkit-touch-callout: none) {
-    @media (display-mode: standalone) {
-        .modern-header::before {
-            display: none;
-        }
-    }
 }
 
 .header-content {
@@ -237,17 +215,10 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: calc(70px + env(safe-area-inset-top, 0px)) 0.75rem 80px;
+    padding: calc(100px + env(safe-area-inset-top, 0px)) 0.75rem calc(80px + env(safe-area-inset-bottom, 0px));
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    /* Make main content scrollable on iOS PWA */
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
-    box-sizing: border-box;
-    /* Ensure starts at top */
-    scroll-behavior: auto;
 }
 
 .sloka-display {
@@ -308,8 +279,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 0.1rem;
-    height: 58%;
-    min-height: 200px;
 }
 
 .sloka-content-row {
@@ -350,10 +319,9 @@ body {
     padding: 1rem;
     box-shadow: var(--shadow-soft);
     border: 1px solid var(--golden-yellow);
+    flex: 1;
     display: flex;
     flex-direction: column;
-    height: 42%;
-    overflow: hidden;
 }
 
 .controls-inline {
@@ -475,10 +443,7 @@ body {
     background: var(--gradient-primary);
     padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
     box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
-    z-index: 1000;
-    /* Ensure it appears above main content in PWA */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
+    z-index: 100;
 }
 
 .nav-content {
@@ -665,9 +630,8 @@ body {
             /* iOS Safari specific overscroll prevention */
             overscroll-behavior-y: none;
             -webkit-overscroll-behavior-y: none;
-            /* Header starts after safe area, so main content starts after header */
-            padding-top: calc(70px + env(safe-area-inset-top, 0px));
-            height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
+            /* Ensure minimal gap */
+            padding-top: max(0.75rem, calc(70px + env(safe-area-inset-top, 0px)));
         }
         
         .sloka-picture img {
@@ -723,8 +687,7 @@ body {
     }
     
     .main-content {
-        padding: calc(70px + env(safe-area-inset-top, 0px)) 0.5rem 80px;
-        height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
+        padding: calc(100px + env(safe-area-inset-top, 0px)) 0.5rem calc(80px + env(safe-area-inset-bottom, 0px));
     }
     
     .sloka-picture {
@@ -810,44 +773,5 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
-        height: 55%;
-        min-height: 180px;
-    }
-    
-    .translation-section {
-        height: 45%;
-    }
-}
-
-/* iOS PWA Specific Fixes */
-@media screen and (display-mode: standalone) {
-    /* Prevent iOS PWA overscroll bounce */
-    body {
-        overscroll-behavior: none;
-        -webkit-overflow-scrolling: auto;
-    }
-    
-    .main-content {
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Ensure content loads at top */
-    .app-container {
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
-    }
-}
-
-/* iOS Device Specific */
-@supports (-webkit-touch-callout: none) {
-    body {
-        /* Prevent iOS bounce scroll */
-        overscroll-behavior-y: none;
-    }
-    
-    .main-content {
-        /* Allow internal scrolling only */
-        overscroll-behavior: contain;
     }
 }
