@@ -71,11 +71,11 @@ body {
 .modern-header {
     background: var(--gradient-primary);
     position: fixed;
-    top: 0;
+    top: env(safe-area-inset-top, 0px);
     left: 0;
     right: 0;
     z-index: 200;
-    padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) 0.75rem 0.25rem;
+    padding: 0.5rem 0.75rem 0.25rem;
     box-shadow: var(--shadow-strong);
     overflow: hidden;
     /* Ensure proper safe area handling for PWA */
@@ -86,7 +86,7 @@ body {
     -webkit-transform: translateZ(0);
 }
 
-/* Extend gradient behind status bar for Android PWA */
+/* Extend gradient behind status bar for Android PWA only */
 .modern-header::before {
     content: '';
     position: fixed;
@@ -96,6 +96,15 @@ body {
     height: env(safe-area-inset-top, 0px);
     background: var(--gradient-primary);
     z-index: -1;
+}
+
+/* iOS PWA: Remove the ::before pseudo-element since header starts after status bar */
+@supports (-webkit-touch-callout: none) {
+    @media (display-mode: standalone) {
+        .modern-header::before {
+            display: none;
+        }
+    }
 }
 
 .header-content {
@@ -228,14 +237,14 @@ body {
 /* Main Content */
 .main-content {
     flex: 1;
-    padding: 100px 0.75rem 80px;
+    padding: calc(70px + env(safe-area-inset-top, 0px)) 0.75rem 80px;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
     /* Make main content scrollable on iOS PWA */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    height: calc(100vh - 180px);
+    height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
     box-sizing: border-box;
     /* Ensure starts at top */
     scroll-behavior: auto;
@@ -653,8 +662,9 @@ body {
             /* iOS Safari specific overscroll prevention */
             overscroll-behavior-y: none;
             -webkit-overscroll-behavior-y: none;
-            /* Updated padding for fixed header */
-            padding-top: 100px;
+            /* Header starts after safe area, so main content starts after header */
+            padding-top: calc(70px + env(safe-area-inset-top, 0px));
+            height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
         }
         
         .sloka-picture img {
@@ -710,8 +720,8 @@ body {
     }
     
     .main-content {
-        padding: 100px 0.5rem 80px;
-        height: calc(100vh - 180px);
+        padding: calc(70px + env(safe-area-inset-top, 0px)) 0.5rem 80px;
+        height: calc(100vh - 150px - env(safe-area-inset-top, 0px));
     }
     
     .sloka-picture {
