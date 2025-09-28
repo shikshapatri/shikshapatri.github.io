@@ -2,12 +2,14 @@
 <html lang="gu">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>शिक्षापत्री</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/styles.css">
-    <meta name="theme-color" content="#008080">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#1f007b">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -17,6 +19,10 @@
     <header id="header">
         <button id="back-btn" style="display:none;"><i class="fas fa-arrow-left"></i></button>
         <h1>शिक्षापत्री</h1>
+        <button id="bookmark-btn" style="display:none;">
+            <i class="fas fa-bookmark"></i>
+            <span id="bookmark-bubble" class="bookmark-bubble"></span>
+        </button>
     </header>
     <main id="main-content">
         <div id="list-screen" class="screen active">
@@ -25,13 +31,13 @@
         <div id="detail-screen" class="screen">
             <div id="sloka-content">
                 <img id="sloka-image" src="" alt="Sloka Image">
+                <div id="sloka-sanskrit"></div>
+                <div id="sloka-text"></div>
+                <div id="sloka-translation"></div>
                 <div id="language-switcher-pills">
                     <button id="gujarati-pill" class="language-pill active">ગુજરાતી</button>
                     <button id="english-pill" class="language-pill">English</button>
                 </div>
-                <div id="sloka-sanskrit"></div>
-                <div id="sloka-text"></div>
-                <div id="sloka-translation"></div>
             </div>
             <div id="sloka-navigation">
                 <button id="prev-sloka-btn">

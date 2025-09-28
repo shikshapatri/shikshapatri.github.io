@@ -8,8 +8,15 @@ const urlsToCache = [
     '/assets/data.json',
     '/assets/images/icon-192.png',
     '/assets/images/icon-512.png',
-    '/assets/images/favicon.ico'
+    '/assets/images/favicon.ico',
+    '/assets/images/app-icon.png',
+    '/assets/images/swaminarayan.jpg'
 ];
+
+// Add all sloka images (1.png to 212.png)
+for (let i = 1; i <= 212; i++) {
+    urlsToCache.push(`/assets/pictorial/${i}.png`);
+}
 
 // Install SW
 self.addEventListener('install', event => {

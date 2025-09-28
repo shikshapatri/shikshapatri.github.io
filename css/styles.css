@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/images/swaminarayan.jpg') no-repeat center center fixed;
+    background: linear-gradient(rgba(101, 67, 33, 0.3), rgba(101, 67, 33, 0.3)), url('../assets/images/swaminarayan.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #333;
     display: flex;
@@ -43,9 +43,13 @@ header {
 header h1 {
     flex: 1;
     text-align: center;
-    color: var(--navbar-footer-text);
     font-size: 3rem;
-    font-weight: 500;
+    font-weight: 900;
+    background: linear-gradient(45deg, #FFD700, #B22222);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 #back-btn {
@@ -54,6 +58,42 @@ header h1 {
     color: var(--navbar-footer-text);
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+#bookmark-btn {
+    background: none;
+    border: none;
+    color: var(--navbar-footer-text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    margin-left: auto;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+#bookmark-btn:hover {
+    background-color: rgba(168, 104, 0, 0.1);
+}
+
+.bookmark-bubble {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--navbar-footer-text);
+    color: var(--navbar-footer-bg);
+    border-radius: 10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    white-space: nowrap;
 }
 
 main {
@@ -110,6 +150,21 @@ main {
     transform: translateY(-5px);
 }
 
+.sloka-card.bookmarked {
+    border: 2px solid var(--navbar-footer-text);
+    box-shadow: 0 8px 32px rgba(168, 104, 0, 0.3);
+    position: relative;
+}
+
+.sloka-card.bookmarked::before {
+    content: '📖';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
 .sloka-header {
     display: flex;
     align-items: flex-start;
@@ -117,8 +172,13 @@ main {
 }
 
 .sloka-number-bubble {
-    background: #B22222;
-    color: var(--navbar-footer-text);
+    background: transparent;
+    color: transparent;
+    background: linear-gradient(45deg, #FFD700, #B22222);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    border: 2px solid var(--navbar-footer-bg);
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -134,13 +194,13 @@ main {
     flex: 1;
     font-size: 0.9rem;
     line-height: 1.4;
-    color: #B22222;
+    color: var(--navbar-footer-bg);
     font-style: italic;
 }
 
 #sloka-content {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -166,7 +226,7 @@ main {
 #sloka-text {
     font-size: 1.2rem;
     line-height: 1.6;
-    color: var(--navbar-footer-text);
+    color: #B22222;
     margin-bottom: 20px;
     text-align: center;
     font-weight: 500;
@@ -175,14 +235,14 @@ main {
 #sloka-translation {
     font-size: 1rem;
     line-height: 1.5;
-    color: var(--navbar-footer-text);
+    color: #B22222;
     text-align: center;
 }
 
 #sloka-sanskrit {
     font-size: 1rem;
     line-height: 1.6;
-    color: #B22222;
+    color: var(--navbar-footer-bg);
     margin-bottom: 15px;
     text-align: center;
     font-weight: 500;
@@ -217,10 +277,12 @@ main {
 #sloka-slider {
     width: 100%;
     max-width: 300px;
-    accent-color: var(--navbar-footer-text);
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.8);
+    outline: none;
     -webkit-appearance: none;
     appearance: none;
-    background: transparent;
     cursor: pointer;
 }
 
@@ -233,12 +295,15 @@ main {
     background: var(--navbar-footer-text);
     cursor: pointer;
     border: 2px solid var(--navbar-footer-text);
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
 #sloka-slider::-webkit-slider-track {
+    width: 100%;
     height: 6px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 3px;
+    border: none;
 }
 
 #sloka-slider::-moz-range-thumb {
@@ -248,10 +313,12 @@ main {
     background: var(--navbar-footer-text);
     cursor: pointer;
     border: 2px solid var(--navbar-footer-text);
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
     border: none;
 }
 
 #sloka-slider::-moz-range-track {
+    width: 100%;
     height: 6px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 3px;
@@ -293,28 +360,28 @@ main {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin: 20px 0;
+    margin: 10px 0 0 0;
 }
 
 .language-pill {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
-    padding: 8px 16px;
+    background: transparent;
+    border: 2px solid var(--navbar-footer-bg);
+    color: var(--navbar-footer-bg);
+    padding: 4px 8px;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     transition: all 0.3s ease;
 }
 
 .language-pill.active {
-    background: rgba(255, 255, 255, 0.4);
-    color: var(--navbar-footer-text);
+    background: var(--navbar-footer-bg);
+    color: #fff;
     font-weight: 500;
 }
 
 .language-pill:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(31, 0, 123, 0.1);
 }
 
 
@@ -346,6 +413,20 @@ main {
         grid-template-columns: 1fr;
     }
     header h1 {
-        font-size: 2.0rem;
+        font-size: 2.4rem;
+        font-weight: 900;
+    }
+    main {
+        padding-top: 80px;
+    }
+}
+/* Responsive */
+@media (max-width: 600px) {
+    #slokas-list {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        font-size: 2.4rem;
+        font-weight: 900;
     }
 }
