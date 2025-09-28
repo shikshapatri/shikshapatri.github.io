@@ -68,13 +68,29 @@ header h1 {
     cursor: pointer;
     position: relative;
     margin-left: auto;
-    padding: 8px;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #bookmark-btn:hover {
-    background-color: rgba(168, 104, 0, 0.1);
+    background-color: rgba(168, 104, 0, 0.15);
+    transform: scale(1.05);
+}
+
+#bookmark-btn.bookmarked {
+    background-color: var(--navbar-footer-text);
+    color: var(--navbar-footer-bg);
+}
+
+#bookmark-btn.bookmarked:hover {
+    background-color: rgba(168, 104, 0, 0.9);
+    transform: scale(1.05);
 }
 
 .bookmark-bubble {

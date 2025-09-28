@@ -101,6 +101,9 @@ function showSloka(id) {
     backBtn.style.display = 'block';
     bookmarkBtn.style.display = 'block';
 
+    // Update bookmark button state
+    updateBookmarkButtonState();
+
     // Reset scroll position when entering detail view
     document.getElementById('main-content').scrollTop = 0;
 
@@ -225,8 +228,20 @@ function toggleBookmark() {
         updateBookmarkBubble();
     }
     
-    // Re-render slokas to update visual indicators
+    // Update button state and re-render slokas
+    updateBookmarkButtonState();
     renderSlokas();
+}
+
+function updateBookmarkButtonState() {
+    if (!currentSloka) return;
+    
+    const bookmarkedSloka = localStorage.getItem('shikshapatri-bookmark');
+    if (bookmarkedSloka == currentSloka.id) {
+        bookmarkBtn.classList.add('bookmarked');
+    } else {
+        bookmarkBtn.classList.remove('bookmarked');
+    }
 }
 
 function updateBookmarkBubble() {
