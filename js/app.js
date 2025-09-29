@@ -87,9 +87,11 @@ function showSloka(id) {
     slokaSanskrit.innerHTML = currentSloka.sanskrit.replace(/\n/g, '<br>');
     if (currentLang === 'gujarati') {
         slokaText.textContent = currentSloka.gujarati;
+        slokaText.classList.add('gujarati');
         slokaTranslation.style.display = 'none';
     } else {
         slokaText.textContent = currentSloka.english;
+        slokaText.classList.remove('gujarati');
         slokaTranslation.style.display = 'none';
     }
 

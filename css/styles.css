@@ -229,8 +229,8 @@ main {
 
 #sloka-image {
     width: 100%;
-    max-width: 400px;
-    height: 350px;
+    max-width: 200px;
+    height: 175px;
     object-fit: contain;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -248,6 +248,10 @@ main {
     font-weight: 500;
 }
 
+#sloka-text.gujarati {
+    font-weight: bold;
+}
+
 #sloka-translation {
     font-size: 1rem;
     line-height: 1.5;
@@ -256,12 +260,12 @@ main {
 }
 
 #sloka-sanskrit {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     color: var(--navbar-footer-bg);
     margin-bottom: 15px;
     text-align: center;
-    font-weight: 500;
+    font-weight: bold;
     font-style: italic;
 }
 
