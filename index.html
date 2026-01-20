@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="gu">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>शिक्षापत्री</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>शिक्षापत्री - Shikshapatri</title>
+    <meta name="description"
+        content="Read Shikshapatri slokas with Sanskrit, Gujarati and English translations. A sacred text by Lord Swaminarayan.">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/styles.css">
     <meta name="theme-color" content="#1f007b">
@@ -14,50 +17,64 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/icon-192.png">
 </head>
+
 <body>
-    <header id="header">
-        <button id="back-btn" style="display:none;"><i class="fas fa-arrow-left"></i></button>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header id="header" role="banner">
+        <button id="back-btn" style="display:none;" aria-label="Go back to slokas list">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        </button>
         <h1>शिक्षापत्री</h1>
-        <button id="bookmark-btn" style="display:none;">
-            <i class="fas fa-bookmark"></i>
-            <span id="bookmark-bubble" class="bookmark-bubble"></span>
+        <button id="bookmark-btn" style="display:none;" aria-label="Bookmark this sloka" aria-pressed="false">
+            <i class="fas fa-bookmark" aria-hidden="true"></i>
+            <span id="bookmark-bubble" class="bookmark-bubble" aria-hidden="true"></span>
         </button>
     </header>
-    <main id="main-content">
-        <div id="list-screen" class="screen active">
-            <div id="slokas-list"></div>
+
+    <main id="main-content" role="main">
+        <div id="list-screen" class="screen active" aria-label="List of all slokas">
+            <div id="slokas-list" role="list" aria-label="Shikshapatri slokas"></div>
         </div>
-        <div id="detail-screen" class="screen">
-            <div id="sloka-content">
-                <img id="sloka-image" src="" alt="Sloka Image">
-                <div id="sloka-sanskrit"></div>
-                <div id="sloka-text"></div>
-                <div id="sloka-translation"></div>
-                <div id="language-switcher-pills">
-                    <button id="gujarati-pill" class="language-pill active">ગુજરાતી</button>
-                    <button id="english-pill" class="language-pill">English</button>
+        <div id="detail-screen" class="screen" aria-label="Sloka detail view">
+            <article id="sloka-content">
+                <img id="sloka-image" src="" alt="Sloka illustration" loading="lazy">
+                <div id="sloka-sanskrit" aria-label="Sanskrit text"></div>
+                <div id="sloka-text" aria-label="Translation"></div>
+                <div id="sloka-translation" aria-label="Additional translation"></div>
+                <div id="language-switcher-pills" role="group" aria-label="Language selection">
+                    <button id="gujarati-pill" class="language-pill active" aria-pressed="true">ગુજરાતી</button>
+                    <button id="hindi-pill" class="language-pill" aria-pressed="false">हिन्दी</button>
+                    <button id="english-pill" class="language-pill" aria-pressed="false">English</button>
                 </div>
-            </div>
-            <div id="sloka-navigation">
-                <button id="prev-sloka-btn">
-                    <i class="fas fa-chevron-left"></i>
+            </article>
+            <nav id="sloka-navigation" aria-label="Sloka navigation">
+                <button id="prev-sloka-btn" aria-label="Previous sloka">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
                 </button>
                 <div id="sloka-slider-container">
-                    <input type="range" id="sloka-slider" min="1" max="212" value="1">
-                    <div id="sloka-counter">1/212</div>
+                    <input type="range" id="sloka-slider" min="1" max="212" value="1" aria-label="Sloka number"
+                        aria-valuemin="1" aria-valuemax="212" aria-valuenow="1" aria-valuetext="Sloka 1 of 212">
+                    <div id="sloka-counter" aria-live="polite">1/212</div>
                 </div>
-                <button id="next-sloka-btn">
-                    <i class="fas fa-chevron-right"></i>
+                <button id="next-sloka-btn" aria-label="Next sloka">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
                 </button>
-            </div>
+            </nav>
         </div>
     </main>
-    <footer id="app-footer">
-        <p><strong>✍️ by</strong> Lord Swaminarayan 
-            <strong>on</strong> February 11, 1826 🙏</p>
+
+    <footer id="app-footer" role="contentinfo">
+        <p><strong>✍️ by</strong> Lord Swaminarayan
+            <strong>on</strong> February 11, 1826 🙏
+        </p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/js/all.min.js"></script>
-    <script src="js/app.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/js/all.min.js" defer></script>
+    <script src="js/app.js" defer></script>
 </body>
+
 </html>

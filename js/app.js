@@ -1,7 +1,8 @@
 // Global variables
 let slokas = [];
 let currentSloka = null;
-let currentLang = 'gujarati'; // 'gujarati' or 'english'
+let currentLang = 'gujarati'; // 'gujarati', 'english', or 'hindi'
+let isLoading = false;
 
 // DOM elements
 const listScreen = document.getElementById('list-screen');
@@ -13,6 +14,7 @@ const slokaText = document.getElementById('sloka-text');
 const slokaTranslation = document.getElementById('sloka-translation');
 const gujaratiPill = document.getElementById('gujarati-pill');
 const englishPill = document.getElementById('english-pill');
+const hindiPill = document.getElementById('hindi-pill');
 const prevSlokaBtn = document.getElementById('prev-sloka-btn');
 const nextSlokaBtn = document.getElementById('next-sloka-btn');
 const slokaSlider = document.getElementById('sloka-slider');
@@ -23,12 +25,19 @@ const bookmarkBubble = document.getElementById('bookmark-bubble');
 
 // Initialize app
 async function init() {
+    showLoadingState();
+
     try {
         // Load data
-        slokas = await fetch('assets/data.json').then(r => r.json());
+        const response = await fetch('assets/data.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        slokas = await response.json();
 
         // Set slider max
         slokaSlider.max = slokas.length;
+        slokaSlider.setAttribute('aria-valuemax', slokas.length);
 
         // Load language preference
         currentLang = localStorage.getItem('shikshapatri-lang') || 'gujarati';
@@ -49,28 +58,73 @@ async function init() {
 
         // Setup navigation
         setupNavigation();
+
+        // Setup keyboard navigation
+        setupKeyboardNavigation();
+
     } catch (error) {
         console.error('Error loading data:', error);
-        slokasList.innerHTML = '<p>Error loading slokas. Please try again.</p>';
+        showErrorState();
     }
+}
+
+// Show loading state
+function showLoadingState() {
+    isLoading = true;
+    slokasList.innerHTML = '';
+    for (let i = 0; i < 6; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'sloka-card skeleton';
+        skeleton.style.height = '80px';
+        skeleton.setAttribute('aria-hidden', 'true');
+        slokasList.appendChild(skeleton);
+    }
+}
+
+// Show error state
+function showErrorState() {
+    isLoading = false;
+    slokasList.innerHTML = `
+        <div class="error-message" role="alert">
+            <p>Error loading slokas. Please check your connection and try again.</p>
+            <button onclick="init()" aria-label="Retry loading slokas">Retry</button>
+        </div>
+    `;
 }
 
 // Render slokas list
 function renderSlokas() {
+    isLoading = false;
     slokasList.innerHTML = '';
     const bookmarkedSloka = localStorage.getItem('shikshapatri-bookmark');
-    
+
     slokas.forEach(sloka => {
         const card = document.createElement('div');
         card.className = 'sloka-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Sloka ${sloka.id}: ${sloka.sanskrit.substring(0, 50)}...`);
+
         if (bookmarkedSloka == sloka.id) {
             card.classList.add('bookmarked');
+            card.setAttribute('aria-label', `Sloka ${sloka.id} (bookmarked): ${sloka.sanskrit.substring(0, 50)}...`);
         }
         card.setAttribute('data-sloka-id', sloka.id);
+
+        // Click handler
         card.onclick = () => showSloka(sloka.id);
+
+        // Keyboard handler
+        card.onkeydown = (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                showSloka(sloka.id);
+            }
+        };
+
         card.innerHTML = `
             <div class="sloka-header">
-                <div class="sloka-number-bubble">${sloka.id}</div>
+                <div class="sloka-number-bubble" aria-hidden="true">${sloka.id}</div>
                 <div class="sloka-content-preview">${sloka.sanskrit.replace(/\n/g, '<br>')}</div>
             </div>
         `;
@@ -83,19 +137,33 @@ function showSloka(id) {
     currentSloka = slokas.find(s => s.id === id);
     if (!currentSloka) return;
 
+    // Set image with lazy loading
     slokaImage.src = `assets/pictorial/${id}.png`;
+    slokaImage.alt = `Pictorial illustration for Sloka ${id}`;
+    slokaImage.loading = 'lazy';
+
     slokaSanskrit.innerHTML = currentSloka.sanskrit.replace(/\n/g, '<br>');
+
     if (currentLang === 'gujarati') {
         slokaText.textContent = currentSloka.gujarati;
         slokaText.classList.add('gujarati');
+        slokaText.classList.remove('hindi');
+        slokaTranslation.style.display = 'none';
+    } else if (currentLang === 'hindi') {
+        slokaText.textContent = currentSloka.hindi || currentSloka.english;
+        slokaText.classList.add('hindi');
+        slokaText.classList.remove('gujarati');
         slokaTranslation.style.display = 'none';
     } else {
         slokaText.textContent = currentSloka.english;
         slokaText.classList.remove('gujarati');
+        slokaText.classList.remove('hindi');
         slokaTranslation.style.display = 'none';
     }
 
     slokaSlider.value = id;
+    slokaSlider.setAttribute('aria-valuenow', id);
+    slokaSlider.setAttribute('aria-valuetext', `Sloka ${id} of ${slokas.length}`);
     slokaCounter.textContent = `${id}/${slokas.length}`;
 
     listScreen.classList.remove('active');
@@ -110,19 +178,31 @@ function showSloka(id) {
     document.getElementById('main-content').scrollTop = 0;
 
     updateNavButtons();
+
+    // Focus on the content for screen readers
+    slokaImage.focus();
 }
 
 // Update navigation buttons
 function updateNavButtons() {
     const currentId = currentSloka.id;
+
     prevSlokaBtn.disabled = currentId === 1;
+    prevSlokaBtn.setAttribute('aria-label', currentId === 1 ? 'No previous sloka' : `Go to sloka ${currentId - 1}`);
+
     nextSlokaBtn.disabled = currentId === slokas.length;
+    nextSlokaBtn.setAttribute('aria-label', currentId === slokas.length ? 'No next sloka' : `Go to sloka ${currentId + 1}`);
 }
 
 // Update language pills
 function updateLanguagePills() {
     gujaratiPill.classList.toggle('active', currentLang === 'gujarati');
     englishPill.classList.toggle('active', currentLang === 'english');
+    hindiPill.classList.toggle('active', currentLang === 'hindi');
+
+    gujaratiPill.setAttribute('aria-pressed', currentLang === 'gujarati');
+    englishPill.setAttribute('aria-pressed', currentLang === 'english');
+    hindiPill.setAttribute('aria-pressed', currentLang === 'hindi');
 }
 
 // Setup navigation
@@ -169,6 +249,47 @@ function setupNavigation() {
         updateLanguagePills();
         if (currentSloka) showSloka(currentSloka.id);
     };
+
+    hindiPill.onclick = () => {
+        currentLang = 'hindi';
+        localStorage.setItem('shikshapatri-lang', currentLang);
+        updateLanguagePills();
+        if (currentSloka) showSloka(currentSloka.id);
+    };
+}
+
+// Setup keyboard navigation
+function setupKeyboardNavigation() {
+    document.addEventListener('keydown', (e) => {
+        // Only handle if detail screen is active
+        if (!detailScreen.classList.contains('active')) return;
+
+        switch (e.key) {
+            case 'ArrowLeft':
+                if (currentSloka && currentSloka.id > 1) {
+                    e.preventDefault();
+                    showSloka(currentSloka.id - 1);
+                }
+                break;
+            case 'ArrowRight':
+                if (currentSloka && currentSloka.id < slokas.length) {
+                    e.preventDefault();
+                    showSloka(currentSloka.id + 1);
+                }
+                break;
+            case 'Escape':
+                e.preventDefault();
+                backBtn.click();
+                break;
+            case 'b':
+            case 'B':
+                if (!e.ctrlKey && !e.metaKey) {
+                    e.preventDefault();
+                    toggleBookmark();
+                }
+                break;
+        }
+    });
 }
 
 // Swipe gesture handling
@@ -194,7 +315,7 @@ function handleSwipe() {
 
     const deltaX = touchEndX - touchStartX;
     const deltaY = touchEndY - touchStartY;
-    
+
     // Check if it's a horizontal swipe (not vertical)
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
         if (deltaX > 0) {
@@ -211,14 +332,14 @@ function handleSwipe() {
     }
 }
 
-// Add touch event listeners
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchend', handleTouchEnd, false);
+// Add touch event listeners with passive option for performance
+document.addEventListener('touchstart', handleTouchStart, { passive: true });
+document.addEventListener('touchend', handleTouchEnd, { passive: true });
 
 // Bookmark functionality
 function toggleBookmark() {
     if (!currentSloka) return;
-    
+
     const bookmarkedSloka = localStorage.getItem('shikshapatri-bookmark');
     if (bookmarkedSloka == currentSloka.id) {
         // Remove bookmark
@@ -229,7 +350,7 @@ function toggleBookmark() {
         localStorage.setItem('shikshapatri-bookmark', currentSloka.id);
         updateBookmarkBubble();
     }
-    
+
     // Update button state and re-render slokas
     updateBookmarkButtonState();
     renderSlokas();
@@ -237,12 +358,18 @@ function toggleBookmark() {
 
 function updateBookmarkButtonState() {
     if (!currentSloka) return;
-    
+
     const bookmarkedSloka = localStorage.getItem('shikshapatri-bookmark');
-    if (bookmarkedSloka == currentSloka.id) {
+    const isBookmarked = bookmarkedSloka == currentSloka.id;
+
+    if (isBookmarked) {
         bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.setAttribute('aria-label', 'Remove bookmark from this sloka');
+        bookmarkBtn.setAttribute('aria-pressed', 'true');
     } else {
         bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.setAttribute('aria-label', 'Bookmark this sloka');
+        bookmarkBtn.setAttribute('aria-pressed', 'false');
     }
 }
 
@@ -265,10 +392,10 @@ function scrollToBookmarkedSloka() {
             const mainContent = document.getElementById('main-content');
             const elementRect = slokaElement.getBoundingClientRect();
             const mainRect = mainContent.getBoundingClientRect();
-            
+
             // Calculate the scroll position relative to the main content
-            const scrollTop = mainContent.scrollTop + elementRect.top - mainRect.top - 100; // 100px offset
-            
+            const scrollTop = mainContent.scrollTop + elementRect.top - mainRect.top - 80; // 80px offset
+
             mainContent.scrollTo({
                 top: scrollTop,
                 behavior: 'smooth'
