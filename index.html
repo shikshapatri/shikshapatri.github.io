@@ -9,6 +9,7 @@
         content="Read Shikshapatri slokas with Sanskrit, Gujarati and English translations. A sacred text by Lord Swaminarayan.">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/search.css">
     <meta name="theme-color" content="#1f007b">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,6 +38,11 @@
 
     <main id="main-content" role="main">
         <div id="list-screen" class="screen active" aria-label="List of all slokas">
+            <div class="hero-video-container">
+                <iframe src="https://www.youtube.com/embed/pZSKP1oszbY" title="Shikshapatri Video" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
             <div id="slokas-list" role="list" aria-label="Shikshapatri slokas"></div>
         </div>
         <div id="detail-screen" class="screen" aria-label="Sloka detail view">
@@ -72,6 +78,28 @@
             <strong>on</strong> February 11, 1826 🙏
         </p>
     </footer>
+
+    <!-- Search Floating Action Button -->
+    <button id="search-btn" class="floating-btn" aria-label="Search slokas">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+    </button>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal-overlay" aria-hidden="true">
+        <div class="search-modal-content" role="dialog" aria-modal="true" aria-labelledby="search-title">
+            <div class="search-header">
+                <h2 id="search-title">Search Slokas</h2>
+                <button id="close-search-btn" aria-label="Close search">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="search-body">
+                <input type="text" id="search-input" placeholder="Type to search (e.g., 'dharma', 'ahimsa')..."
+                    aria-label="Search query">
+                <div id="search-results" role="list"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/js/all.min.js" defer></script>
     <script src="js/app.js" defer></script>
