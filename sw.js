@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shikshapatri-pwa-v1';
+const CACHE_NAME = 'shikshapatri-pwa-1';
 const urlsToCache = [
     '/',
     '/index.html',
