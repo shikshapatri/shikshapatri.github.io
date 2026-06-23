@@ -12,9 +12,7 @@ const slokaImage = document.getElementById('sloka-image');
 const slokaSanskrit = document.getElementById('sloka-sanskrit');
 const slokaText = document.getElementById('sloka-text');
 const slokaTranslation = document.getElementById('sloka-translation');
-const gujaratiPill = document.getElementById('gujarati-pill');
-const englishPill = document.getElementById('english-pill');
-const hindiPill = document.getElementById('hindi-pill');
+const languageSelect = document.getElementById('language-select');
 const prevSlokaBtn = document.getElementById('prev-sloka-btn');
 const nextSlokaBtn = document.getElementById('next-sloka-btn');
 const slokaSlider = document.getElementById('sloka-slider');
@@ -22,11 +20,7 @@ const slokaCounter = document.getElementById('sloka-counter');
 const backBtn = document.getElementById('back-btn');
 const bookmarkBtn = document.getElementById('bookmark-btn');
 const bookmarkBubble = document.getElementById('bookmark-bubble');
-const searchBtn = document.getElementById('search-btn');
-const searchModal = document.getElementById('search-modal');
-const closeSearchBtn = document.getElementById('close-search-btn');
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
+
 
 // Initialize app
 async function init() {
@@ -67,8 +61,7 @@ async function init() {
         // Setup keyboard navigation
         setupKeyboardNavigation();
 
-        // Setup Search
-        setupSearch();
+
 
     } catch (error) {
         console.error('Error loading data:', error);
@@ -178,7 +171,7 @@ function showSloka(id) {
     detailScreen.classList.add('active');
     backBtn.style.display = 'block';
     bookmarkBtn.style.display = 'block';
-    searchBtn.style.display = 'none';
+    document.getElementById('sloka-navigation').style.display = 'flex';
 
     // Update bookmark button state
     updateBookmarkButtonState();
@@ -203,15 +196,11 @@ function updateNavButtons() {
     nextSlokaBtn.setAttribute('aria-label', currentId === slokas.length ? 'No next sloka' : `Go to sloka ${currentId + 1}`);
 }
 
-// Update language pills
+// Update language selector value
 function updateLanguagePills() {
-    gujaratiPill.classList.toggle('active', currentLang === 'gujarati');
-    englishPill.classList.toggle('active', currentLang === 'english');
-    hindiPill.classList.toggle('active', currentLang === 'hindi');
-
-    gujaratiPill.setAttribute('aria-pressed', currentLang === 'gujarati');
-    englishPill.setAttribute('aria-pressed', currentLang === 'english');
-    hindiPill.setAttribute('aria-pressed', currentLang === 'hindi');
+    if (languageSelect) {
+        languageSelect.value = currentLang;
+    }
 }
 
 // Setup navigation
@@ -221,7 +210,7 @@ function setupNavigation() {
         listScreen.classList.add('active');
         backBtn.style.display = 'none';
         bookmarkBtn.style.display = 'none';
-        searchBtn.style.display = 'flex';
+        document.getElementById('sloka-navigation').style.display = 'none';
         currentSloka = null;
         // Scroll to bookmarked sloka when returning to list view
         setTimeout(scrollToBookmarkedSloka, 100);
@@ -246,22 +235,8 @@ function setupNavigation() {
         showSloka(id);
     };
 
-    gujaratiPill.onclick = () => {
-        currentLang = 'gujarati';
-        localStorage.setItem('shikshapatri-lang', currentLang);
-        updateLanguagePills();
-        if (currentSloka) showSloka(currentSloka.id);
-    };
-
-    englishPill.onclick = () => {
-        currentLang = 'english';
-        localStorage.setItem('shikshapatri-lang', currentLang);
-        updateLanguagePills();
-        if (currentSloka) showSloka(currentSloka.id);
-    };
-
-    hindiPill.onclick = () => {
-        currentLang = 'hindi';
+    languageSelect.onchange = (e) => {
+        currentLang = e.target.value;
         localStorage.setItem('shikshapatri-lang', currentLang);
         updateLanguagePills();
         if (currentSloka) showSloka(currentSloka.id);
@@ -414,117 +389,7 @@ function scrollToBookmarkedSloka() {
     }
 }
 
-// Search Functionality
-function setupSearch() {
-    // Open Modal
-    searchBtn.addEventListener('click', () => {
-        searchModal.setAttribute('aria-hidden', 'false');
-        searchInput.focus();
-    });
-
-    // Close Modal
-    function closeSearch() {
-        searchModal.setAttribute('aria-hidden', 'true');
-        searchInput.value = '';
-        searchResults.innerHTML = '';
-    }
-
-    closeSearchBtn.addEventListener('click', closeSearch);
-
-    // Close on backdrop click
-    searchModal.addEventListener('click', (e) => {
-        if (e.target === searchModal) {
-            closeSearch();
-        }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && searchModal.getAttribute('aria-hidden') === 'false') {
-            closeSearch();
-        }
-    });
-
-    // Search Input Logic
-    let debounceTimer;
-    searchInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        const query = e.target.value.toLowerCase().trim();
-
-        if (query.length < 2) {
-            searchResults.innerHTML = '';
-            return;
-        }
-
-        debounceTimer = setTimeout(() => {
-            performSearch(query);
-        }, 300);
-    });
-
-    // Perform Search
-    function performSearch(query) {
-        const results = slokas.filter(sloka => {
-            const sanskrit = (sloka.sanskrit || '').toLowerCase();
-            const gujarati = (sloka.gujarati || '').toLowerCase();
-            const hindi = (sloka.hindi || '').toLowerCase();
-            const english = (sloka.english || '').toLowerCase();
-            const id = sloka.id.toString();
-
-            return id.includes(query) ||
-                sanskrit.includes(query) ||
-                gujarati.includes(query) ||
-                hindi.includes(query) ||
-                english.includes(query);
-        });
-
-        displaySearchResults(results, query);
-    }
-
-    // Display Results
-    function displaySearchResults(results, query) {
-        searchResults.innerHTML = '';
-
-        if (results.length === 0) {
-            searchResults.innerHTML = '<div class="no-results">No slokas found matching your query.</div>';
-            return;
-        }
-
-        results.forEach(sloka => {
-            const item = document.createElement('div');
-            item.className = 'search-result-item';
-            item.setAttribute('role', 'button');
-            item.setAttribute('tabindex', '0');
-
-            // Highlight text based on current language or default to English/Hindi if query matches there
-            // Simple snippet generation
-            let snippet = sloka.english;
-            if (currentLang === 'gujarati') snippet = sloka.gujarati;
-            if (currentLang === 'hindi') snippet = sloka.hindi;
-
-            item.innerHTML = `
-                <div class="result-header">
-                    <span>Sloka ${sloka.id}</span>
-                </div>
-                <div class="result-snippet">${snippet}</div>
-            `;
-
-            item.addEventListener('click', () => {
-                showSloka(sloka.id);
-                closeSearch();
-            });
-
-            // Enter key support
-            item.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    showSloka(sloka.id);
-                    closeSearch();
-                }
-            });
-
-            searchResults.appendChild(item);
-        });
-    }
-}
+// 
 
 // Register service worker
 if ('serviceWorker' in navigator) {

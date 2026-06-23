@@ -9,8 +9,7 @@
         content="Read Shikshapatri slokas with Sanskrit, Gujarati and English translations. A sacred text by Lord Swaminarayan.">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/search.css">
-    <meta name="theme-color" content="#1f007b">
+    <meta name="theme-color" content="#E6A623">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -29,7 +28,7 @@
         <button id="back-btn" style="display:none;" aria-label="Go back to slokas list">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
         </button>
-        <h1>शिक्षापत्री</h1>
+        <h1 id="header-title"><img src="assets/images/navbar-image.png" alt="शिक्षाપત્રી" id="header-logo"></h1>
         <button id="bookmark-btn" style="display:none;" aria-label="Bookmark this sloka" aria-pressed="false">
             <i class="fas fa-bookmark" aria-hidden="true"></i>
             <span id="bookmark-bubble" class="bookmark-bubble" aria-hidden="true"></span>
@@ -39,7 +38,7 @@
     <main id="main-content" role="main">
         <div id="list-screen" class="screen active" aria-label="List of all slokas">
             <div class="hero-video-container">
-                <iframe src="https://www.youtube.com/embed/pZSKP1oszbY" title="Shikshapatri Video" frameborder="0"
+                <iframe src="https://www.youtube.com/embed/gDTZOd1ShZM" title="Shikshapatri Video" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
             </div>
@@ -49,57 +48,44 @@
             <article id="sloka-content">
                 <img id="sloka-image" src="" alt="Sloka illustration" loading="lazy">
                 <div id="sloka-sanskrit" aria-label="Sanskrit text"></div>
-                <div id="sloka-text" aria-label="Translation"></div>
+                <div id="translation-card">
+                    <div class="translation-header">
+                        <span class="translation-title"><i class="fas fa-language"></i> Translation</span>
+                        <select id="language-select" class="language-select" aria-label="Select language">
+                            <option value="gujarati">ગુજરાતી</option>
+                            <option value="hindi">हिन्दी</option>
+                            <option value="english">English</option>
+                        </select>
+                    </div>
+                    <div id="sloka-text" aria-label="Translation"></div>
+                </div>
                 <div id="sloka-translation" aria-label="Additional translation"></div>
-                <div id="language-switcher-pills" role="group" aria-label="Language selection">
-                    <button id="gujarati-pill" class="language-pill active" aria-pressed="true">ગુજરાતી</button>
-                    <button id="hindi-pill" class="language-pill" aria-pressed="false">हिन्दी</button>
-                    <button id="english-pill" class="language-pill" aria-pressed="false">English</button>
-                </div>
             </article>
-            <nav id="sloka-navigation" aria-label="Sloka navigation">
-                <button id="prev-sloka-btn" aria-label="Previous sloka">
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                </button>
-                <div id="sloka-slider-container">
-                    <input type="range" id="sloka-slider" min="1" max="212" value="1" aria-label="Sloka number"
-                        aria-valuemin="1" aria-valuemax="212" aria-valuenow="1" aria-valuetext="Sloka 1 of 212">
-                    <div id="sloka-counter" aria-live="polite">1/212</div>
-                </div>
-                <button id="next-sloka-btn" aria-label="Next sloka">
-                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                </button>
-            </nav>
         </div>
     </main>
 
-    <footer id="app-footer" role="contentinfo">
-        <p><strong>✍️ by</strong> Lord Swaminarayan
-            <strong>on</strong> February 11, 1826 🙏
-        </p>
-    </footer>
-
-    <!-- Search Floating Action Button -->
-    <button id="search-btn" class="floating-btn" aria-label="Search slokas">
-        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
-    </button>
-
-    <!-- Search Modal -->
-    <div id="search-modal" class="modal-overlay" aria-hidden="true">
-        <div class="search-modal-content" role="dialog" aria-modal="true" aria-labelledby="search-title">
-            <div class="search-header">
-                <h2 id="search-title">Search Slokas</h2>
-                <button id="close-search-btn" aria-label="Close search">
-                    <i class="fas fa-times" aria-hidden="true"></i>
-                </button>
+    <div id="bottom-bar-container">
+        <nav id="sloka-navigation" aria-label="Sloka navigation" style="display: none;">
+            <button id="prev-sloka-btn" aria-label="Previous sloka">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div id="sloka-slider-container">
+                <input type="range" id="sloka-slider" min="1" max="212" value="1" aria-label="Sloka number"
+                    aria-valuemin="1" aria-valuemax="212" aria-valuenow="1" aria-valuetext="Sloka 1 of 212">
+                <div id="sloka-counter" aria-live="polite">1/212</div>
             </div>
-            <div class="search-body">
-                <input type="text" id="search-input" placeholder="Type to search (e.g., 'dharma', 'ahimsa')..."
-                    aria-label="Search query">
-                <div id="search-results" role="list"></div>
-            </div>
-        </div>
+            <button id="next-sloka-btn" aria-label="Next sloka">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+        </nav>
+        <footer id="app-footer" role="contentinfo">
+            <p><strong>✍️ by</strong> Lord Swaminarayan
+                <strong>on</strong> February 11, 1826 🙏
+            </p>
+        </footer>
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/js/all.min.js" defer></script>
     <script src="js/app.js" defer></script>

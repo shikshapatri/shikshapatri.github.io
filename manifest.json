@@ -4,8 +4,8 @@
     "description": "A Progressive Web App for reading Shikshapatri slokas with Gujarati and English translations.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#1f007b",
-    "theme_color": "#1f007b",
+    "background_color": "#E6A623",
+    "theme_color": "#E6A623",
     "icons": [
         {
             "src": "assets/images/icon-192.png",

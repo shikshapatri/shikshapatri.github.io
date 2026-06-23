@@ -5,24 +5,56 @@
     box-sizing: border-box;
 }
 
-/* Color scheme variables */
+/* Color scheme variables (Bhagavatam Theme) */
 :root {
-    --navbar-footer-bg: #1f007b;
-    --navbar-footer-text: #a86800;
-    --card-bg: rgba(255, 255, 255, 0.1);
-    --card-bg-opaque: rgba(255, 255, 255, 0.55);
-    --card-border: rgba(255, 255, 255, 0.2);
-    --text-primary: #1f007b;
-    --text-secondary: #B22222;
+    --bg-primary: #E6A623;       /* Golden Yellow */
+    --bg-secondary: #F7C844;     /* Medium Yellow */
+    --color-royal-blue: #A5252C;  /* Deep Red */
+    --color-electric-blue: #E65100; /* Burnt Orange */
+    --color-gold: #A5252C;        /* Deep Red (contrasting against yellow background) */
+    --color-light-gold: #A5252C;  /* Deep Red */
+    --color-amber: #E65100;       /* Burnt Orange */
+    --color-saffron-light: #E65100; /* Burnt Orange */
+    --color-text-main: #2c2c2c;   /* Dark charcoal text for readability */
+    --color-text-muted: #5d4e75;  /* Purple-Grey muted text */
+    --glass-bg: rgba(255, 255, 255, 0.45); /* Light glass card background */
+    --glass-border: rgba(165, 37, 44, 0.15); /* Light red border */
+    --gold-border-glow: rgba(165, 37, 44, 0.15);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Compatibility mappings for original variables */
+    --navbar-footer-bg: #E6A623;
+    --navbar-footer-text: #A5252C;
+    --card-bg: rgba(255, 255, 255, 0.45);
+    --card-bg-opaque: rgba(255, 255, 255, 0.45);
+    --card-border: rgba(165, 37, 44, 0.15);
+    --text-primary: #2c2c2c;
+    --text-secondary: #A5252C;
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
 }
 
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(165, 37, 44, 0.45);
+    border-radius: 1.5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(165, 37, 44, 0.7);
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('../assets/images/swaminarayan.jpg') no-repeat center center fixed;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #E6A623 url('../assets/images/yellow_bg.png') no-repeat center center fixed;
     background-size: cover;
-    color: #333;
+    color: var(--color-text-main);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -36,98 +68,102 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: var(--navbar-footer-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    padding: 8px 16px;
+    height: 76px; /* Fixed height for pixel-perfect alignment */
+    background: #E6A623;
+    padding: 0 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    border-bottom: 1px solid var(--card-border);
+    border-bottom: none;
 }
 
 header h1 {
     flex: 1;
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 900;
-    background: linear-gradient(45deg, #FFD700, #B22222);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    font-size: 2.0rem;
+    color: var(--color-royal-blue);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+#header-logo {
+    max-height: 74px;
+    max-width: 95%;
+    object-fit: contain;
+    vertical-align: middle;
+    display: inline-block;
+    transition: var(--transition-smooth);
 }
 
 /* Back button */
 #back-btn {
-    background: none;
+    background: transparent;
+    color: var(--color-royal-blue);
     border: none;
-    color: var(--navbar-footer-text);
-    font-size: 1.2rem;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-    transition: background-color var(--transition-fast);
-    min-width: 44px;
-    min-height: 44px;
+    font-size: 1.55rem;
+    transition: var(--transition-smooth);
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 38px;
+    height: 38px;
+    outline: none;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
 }
 
 #back-btn:hover,
 #back-btn:focus {
-    background-color: rgba(168, 104, 0, 0.15);
-    outline: 2px solid var(--navbar-footer-text);
-    outline-offset: 2px;
+    transform: translateY(-50%) scale(1.1);
+    color: var(--color-electric-blue);
+    background: transparent;
+    outline: none;
 }
 
 /* Bookmark button */
 #bookmark-btn {
-    background: none;
+    background: transparent;
+    color: var(--color-royal-blue);
     border: none;
-    color: var(--navbar-footer-text);
-    font-size: 1.2rem;
     cursor: pointer;
-    position: relative;
-    margin-left: auto;
-    padding: 8px;
-    border-radius: 8px;
-    transition: all var(--transition-normal);
-    min-width: 44px;
-    min-height: 44px;
+    font-size: 1.55rem;
+    transition: var(--transition-smooth);
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 38px;
+    height: 38px;
+    outline: none;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
 }
 
 #bookmark-btn:hover,
 #bookmark-btn:focus {
-    background-color: rgba(168, 104, 0, 0.15);
-    transform: scale(1.05);
-    outline: 2px solid var(--navbar-footer-text);
-    outline-offset: 2px;
+    transform: translateY(-50%) scale(1.1);
+    color: var(--color-electric-blue);
+    background: transparent;
+    outline: none;
 }
 
 #bookmark-btn.bookmarked {
-    background-color: var(--navbar-footer-text);
-    color: var(--navbar-footer-bg);
-}
-
-#bookmark-btn.bookmarked:hover,
-#bookmark-btn.bookmarked:focus {
-    background-color: rgba(168, 104, 0, 0.9);
-    transform: scale(1.05);
+    color: var(--color-electric-blue);
 }
 
 .bookmark-bubble {
     position: absolute;
     top: -4px;
     right: -4px;
-    background-color: var(--navbar-footer-text);
-    color: var(--navbar-footer-bg);
+    background-color: var(--color-electric-blue);
+    color: #fff;
     border-radius: 10px;
     min-width: 18px;
     height: 18px;
@@ -143,8 +179,8 @@ header h1 {
 /* Main content */
 main {
     flex: 1;
-    padding-top: 70px;
-    padding-bottom: 52px;
+    padding-top: 76px;
+    padding-bottom: 110px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -152,26 +188,19 @@ main {
 /* Screens */
 .screen {
     display: none;
-    padding: 12px;
-    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/images/swaminarayan.jpg') no-repeat center center fixed;
-    background-size: cover;
+    padding: 15px;
+    background: transparent;
     min-height: 100%;
     position: relative;
-}
-
-.screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.3);
-    z-index: -1;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
 }
 
 .screen.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Hero Video */
@@ -180,10 +209,10 @@ main {
     max-width: 800px;
     margin: 0 auto 24px;
     aspect-ratio: 16 / 9;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border);
     position: relative;
     background: #000;
 }
@@ -196,133 +225,203 @@ main {
 /* Slokas list grid */
 #slokas-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px 0 25px 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Sloka card */
 .sloka-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--card-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
     cursor: pointer;
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    color: #fff;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    color: var(--color-text-main);
+}
+
+.sloka-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(165, 37, 44, 0.12) 0%, rgba(255, 130, 0, 0.06) 100%);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    z-index: 0;
 }
 
 .sloka-card:hover,
 .sloka-card:focus {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    border-color: rgba(234, 179, 8, 0.4);
+    box-shadow: 0 12px 40px rgba(234, 179, 8, 0.15);
+    outline: none;
+}
+
+.sloka-card:hover::after {
+    opacity: 1;
 }
 
 .sloka-card:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.sloka-card:focus {
-    outline: 2px solid var(--navbar-footer-text);
-    outline-offset: 2px;
+    transform: translateY(-1px);
 }
 
 .sloka-card.bookmarked {
-    border: 2px solid var(--navbar-footer-text);
-    box-shadow: 0 4px 20px rgba(168, 104, 0, 0.3);
-    position: relative;
+    border: 2px solid var(--color-electric-blue);
+    box-shadow: 0 8px 32px rgba(230, 81, 0, 0.15);
 }
 
 .sloka-card.bookmarked::before {
-    content: '📖';
+    content: '';
     position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 1rem;
-    opacity: 0.8;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(230, 81, 0, 0.8), transparent);
+    opacity: 0.9;
+    z-index: 2;
 }
 
 .sloka-header {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
 }
 
 .sloka-number-bubble {
-    background: transparent;
-    color: transparent;
-    background: linear-gradient(45deg, #FFD700, #B22222);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    border: 2px solid var(--navbar-footer-bg);
+    background: var(--color-royal-blue);
+    color: #fff;
+    border: 1.5px solid var(--color-electric-blue);
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.05rem;
     flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(165, 37, 44, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.sloka-card:hover .sloka-number-bubble {
+    transform: scale(1.06);
+    background: var(--color-electric-blue);
+    border-color: var(--color-electric-blue);
 }
 
 .sloka-content-preview {
     flex: 1;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    color: var(--text-primary);
-    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-text-main);
+    font-weight: 500;
+    font-style: normal;
 }
 
 /* Sloka detail content */
 #sloka-content {
     max-width: 800px;
-    margin: 0 auto;
-    background: var(--card-bg-opaque);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    margin: 15px auto 40px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 12px 12px 24px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--card-border);
-    color: #fff;
+    padding: 22px;
+    box-shadow: 0 8px 32px 0 rgba(165, 37, 44, 0.08);
+    color: var(--color-text-main);
+    position: relative;
+    overflow: hidden;
+}
+
+#sloka-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(165, 37, 44, 0.4), transparent);
+    opacity: 0.7;
 }
 
 #sloka-image {
     width: 100%;
-    max-width: 180px;
+    max-width: 360px;
     height: auto;
     aspect-ratio: 1 / 0.875;
     object-fit: contain;
-    border-radius: 10px;
-    margin: 0 auto 12px;
+    border-radius: 12px;
+    margin: 0 auto 20px;
     display: block;
-    loading: lazy;
-    border: 3px solid var(--navbar-footer-bg);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(165, 37, 44, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 #sloka-sanskrit {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-primary);
-    margin-bottom: 12px;
+    font-size: 1.22rem;
+    line-height: 1.85;
+    color: var(--color-royal-blue);
+    margin-bottom: 20px;
     text-align: center;
-    font-weight: bold;
-    font-style: italic;
+    font-weight: 600;
+    font-style: normal;
+}
+
+#translation-card {
+    padding: 22px;
+    background: rgba(230, 166, 35, 0.2);
+    border-radius: 20px;
+    border: 1px solid rgba(165, 37, 44, 0.15);
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.translation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1.5px solid rgba(165, 37, 44, 0.12);
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+}
+
+.translation-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-royal-blue);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 #sloka-text {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    text-align: center;
+    font-size: 1.12rem;
+    line-height: 1.65;
+    color: #000000;
     font-weight: 500;
+    text-align: center;
+    margin-top: 10px;
 }
 
 #sloka-text.gujarati {
@@ -330,67 +429,62 @@ main {
 }
 
 #sloka-translation {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--color-text-main);
     text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Language switcher */
-#language-switcher-pills {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.language-pill {
-    background: transparent;
-    border: 1px solid var(--navbar-footer-bg);
-    color: var(--navbar-footer-bg);
-    padding: 5px 10px;
-    border-radius: 12px;
+/* Language switcher dropdown */
+.language-select {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1.5px solid rgba(165, 37, 44, 0.25);
+    border-radius: 20px;
+    padding: 6px 30px 6px 14px;
+    color: var(--color-royal-blue);
+    font-weight: 600;
+    font-size: 0.82rem;
     cursor: pointer;
-    font-size: 0.75rem;
-    transition: all var(--transition-normal);
-    min-height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.language-pill:hover,
-.language-pill:focus {
-    background: rgba(31, 0, 123, 0.1);
     outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A5252C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-.language-pill:focus {
-    box-shadow: 0 0 0 3px rgba(31, 0, 123, 0.3);
+.language-select:hover,
+.language-select:focus {
+    border-color: var(--color-royal-blue);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(165, 37, 44, 0.12);
 }
 
-.language-pill.active {
-    background: var(--navbar-footer-bg);
-    color: #fff;
-    font-weight: 500;
-}
-
-/* Sloka navigation */
-#sloka-navigation {
+#bottom-bar-container {
     position: fixed;
-    bottom: 34px;
+    bottom: 0;
     left: 0;
     right: 0;
-    background: var(--card-bg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Sloka navigation bottom bar */
+#sloka-navigation {
+    width: 100%;
+    background: #E6A623;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 8px 16px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid var(--card-border);
-    z-index: 1000;
 }
 
 #sloka-slider-container {
@@ -404,86 +498,90 @@ main {
 #sloka-slider {
     width: 100%;
     max-width: 280px;
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 0.4);
-    outline: none;
     -webkit-appearance: none;
     appearance: none;
+    height: 5px;
+    background: rgba(165, 37, 44, 0.2);
+    border-radius: 5px;
+    outline: none;
     cursor: pointer;
 }
 
 #sloka-slider:focus {
-    box-shadow: 0 0 0 3px rgba(168, 104, 0, 0.3);
+    box-shadow: 0 0 0 3px rgba(165, 37, 44, 0.2);
 }
 
 #sloka-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     border-radius: 50%;
-    background: var(--navbar-footer-text);
+    background: var(--color-royal-blue);
     cursor: pointer;
-    border: 2px solid var(--navbar-footer-text);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    border: none;
+    box-shadow: 0 0 8px rgba(165, 37, 44, 0.4);
+    transition: var(--transition-smooth);
+}
+
+#sloka-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
 }
 
 #sloka-slider::-webkit-slider-track {
     width: 100%;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.4);
+    height: 5px;
+    background: rgba(165, 37, 44, 0.2);
     border-radius: 3px;
-    border: none;
 }
 
 #sloka-slider::-moz-range-thumb {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     border-radius: 50%;
-    background: var(--navbar-footer-text);
+    background: var(--color-royal-blue);
     cursor: pointer;
     border: none;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 8px rgba(165, 37, 44, 0.4);
+    transition: var(--transition-smooth);
 }
 
 #sloka-slider::-moz-range-track {
     width: 100%;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.4);
+    height: 5px;
+    background: rgba(165, 37, 44, 0.2);
     border-radius: 3px;
-    border: none;
 }
 
 #sloka-counter {
     margin-top: 4px;
-    font-size: 0.85rem;
-    color: var(--navbar-footer-text);
-    font-weight: 500;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
 }
 
 #sloka-navigation button {
-    background: var(--navbar-footer-bg);
-    color: var(--navbar-footer-text);
-    border: none;
+    background: rgba(255, 255, 255, 0.35);
+    color: var(--color-royal-blue);
+    border: 1px solid rgba(165, 37, 44, 0.25);
     padding: 0;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.1rem;
-    min-width: 44px;
-    min-height: 44px;
+    min-width: 40px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    transition: var(--transition-smooth);
 }
 
 #sloka-navigation button:hover,
 #sloka-navigation button:focus {
-    background: #1a0066;
-    transform: scale(1.05);
-    outline: 2px solid var(--navbar-footer-text);
-    outline-offset: 2px;
+    background: rgba(234, 179, 8, 0.15);
+    border-color: var(--color-royal-blue);
+    transform: scale(1.08);
+    outline: none;
 }
 
 #sloka-navigation button:active {
@@ -491,7 +589,7 @@ main {
 }
 
 #sloka-navigation button:disabled {
-    background: #ccc;
+    opacity: 0.3;
     cursor: not-allowed;
     transform: none;
 }
@@ -502,39 +600,33 @@ main {
 
 /* Footer */
 #app-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--navbar-footer-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    padding: 8px 16px;
-    text-align: center;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    border-top: 1px solid var(--card-border);
+    width: 100%;
+    background: #E6A623;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #app-footer p {
-    color: var(--navbar-footer-text);
+    color: var(--color-royal-blue);
     margin: 0;
     font-size: 0.85rem;
+    font-weight: 500;
 }
 
 /* Loading skeleton */
 .skeleton {
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.15) 75%);
     background-size: 200% 100%;
     animation: skeleton-loading 1.5s infinite;
-    border-radius: 8px;
+    border-radius: 12px;
 }
 
 @keyframes skeleton-loading {
     0% {
         background-position: 200% 0;
     }
-
     100% {
         background-position: -200% 0;
     }
@@ -544,14 +636,14 @@ main {
 .error-message {
     text-align: center;
     padding: 24px;
-    color: var(--text-secondary);
-    font-weight: 500;
+    color: var(--color-royal-blue);
+    font-weight: 600;
 }
 
 .error-message button {
     margin-top: 12px;
     padding: 10px 20px;
-    background: var(--navbar-footer-bg);
+    background: var(--color-royal-blue);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -565,7 +657,7 @@ main {
     position: absolute;
     top: -100%;
     left: 0;
-    background: var(--navbar-footer-bg);
+    background: var(--color-royal-blue);
     color: #fff;
     padding: 12px 16px;
     z-index: 10000;
@@ -579,7 +671,6 @@ main {
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -593,42 +684,42 @@ main {
 @media (max-width: 600px) {
     #slokas-list {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 12px;
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
     main {
-        padding-top: 65px;
-        padding-bottom: 48px;
+        padding-top: 76px;
+        padding-bottom: 95px;
     }
 
     .screen {
-        padding: 10px;
-    }
-
-    .sloka-card {
         padding: 12px;
     }
 
+    .sloka-card {
+        padding: 16px;
+    }
+
     #sloka-content {
-        padding: 10px 10px 20px;
+        padding: 16px;
         border-radius: 16px;
     }
 
     #sloka-image {
-        max-width: 150px;
+        max-width: 280px;
     }
 
     #sloka-navigation {
-        bottom: 28px;
-        padding: 6px 12px;
+        padding: 8px 16px;
     }
 
     #app-footer {
-        padding: 6px 12px;
+        height: 28px;
+        padding: 0;
     }
 
     #app-footer p {
@@ -640,10 +731,10 @@ main {
 @media (min-width: 1024px) {
     #slokas-list {
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 16px;
+        gap: 20px;
     }
 
     .screen {
-        padding: 16px 24px;
+        padding: 20px 30px;
     }
 }
